@@ -1,0 +1,18 @@
+Script started on 2022-09-12 20:30:47-04:00
+1. Sort the customer IDs in order to find the customer who authored the most reviews. Which customers are the top 3 reviewers
+]0;luc@sjsu:~/cs131/ws3[luc@sjsu ws3]$ cut -d "        " -f 2 ../../amazon_reviews_us_Books_v1_02.tsv | sort | uniq -c | sort -nr > cust-review .txt
+]0;luc@sjsu:~/cs131/ws3[luc@sjsu ws3]$ head -3 cust-review.txt 
+  21922 50122160
+   9964 50732546
+   2664 52615377
+
+2. Sort the products in order to find the product that has the most reviews. What are the top 3 most reviewed products?
+]0;luc@sjsu:~/cs131/ws3[luc@sjsu ws3]$ cut -d "        " -f 6 ../../amazon_reviews_us_Books_v1_02.tsv | sort | uniq -c | sort -nr > tot_reviews .txt
+]0;luc@sjsu:~/cs131/ws3[luc@sjsu ws3]$ head -3 tot_reviews.txt 
+   4862 Harry Potter and the Order of the Phoenix (Book 5)
+   3740 Harry Potter And The Goblet Of Fire (Book 4)
+   2707 The Da Vinci Code
+]0;luc@sjsu:~/cs131/ws3[luc@sjsu ws3]$ history > cmds.log
+]0;luc@sjsu:~/cs131/ws3[luc@sjsu ws3]$ more ws3.txt[K[K[K[K[K[K[K[K[K[K[K[Kexit
+
+Script done on 2022-09-12 20:38:38-04:00
