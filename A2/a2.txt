@@ -1,0 +1,182 @@
+Script started on 2022-09-24 18:18:17-04:00
+]0;luc@sjsu:~[luc@sjsu ~]$ cd A2[K[K[K[K[Kls
+[0m[38;5;33mA2[0m  a2.txt  amazon_reviews_us_Books_v1_02.tsv  [38;5;33mcs131[0m
+]0;luc@sjsu:~[luc@sjsu ~]$ cd A2
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ ls
+downloaded_tweets_extend_nolf2.tsv  downloaded_tweets_extend_original_nolf2.tsv
+1) Find the top 10 users who replied the most to other users
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ awk -F '       ' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | unniq -c | sort -rn | head[Als[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cawk -F '       ' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | unniq -c | sort -rn | head[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uni[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq [1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq -[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq -c[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq -c [1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq -c |[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq -c | [1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq -c |[1@ [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ' '$6 != "" && $6 != $2' downloaded_tweets_extend_original_nolf2.tsv | cut -f 2 | sort | uniq -c [1@|[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+     34 1387010761994682371
+     19 1573800344
+     17 1921951394
+     17 1240682348120866816
+     15 94350709
+     14 940778288871542786
+     11 29447428
+     10 90107770
+     10 1401861298233647106
+      9 531618878
+
+2) Find the top 10 users who got the most replies from other users 
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ cut -f 6 downloaded_tweets_extend_original_nolf2.tsv | sort | uniq -c | sort -rn | head -11
+  38743 
+    238 18831926
+    107 380648579
+     83 16050065
+     46 3453306553
+     39 544732668
+     37 1094971056358637568
+     36 172323296
+     36 140496030
+     31 29447428
+     30 1240682348120866816
+
+3) Find the top 10 users who retweeted the most other tweets
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ grep "retweeted" downloaded_tweets_extend_nolf2.tsv | cut -f 2 | sort | uniq -c | sort -rn | head
+   2065 45379403
+   1678 77726331
+   1641 870244616003403781
+   1582 1028022611324747776
+   1312 711608180535640064
+   1281 139109800
+   1234 177400353
+   1216 832019161454817280
+   1159 29447428
+   1139 1060440219097423872
+
+5) Find the 30 hashtags used most frequently overall for anything
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ cut -d " " -f 4 downloaded_tweets_extend_nolf2.tsv | sort | uniq -c | sort -nr | head -30[C[C[C[C[1P[1@ 
+  20647 
+   1266 Ukraine
+    945 COVID19
+    870 LongCovid
+    833 "FBPE,FollowBackFriday"
+    320 Russia
+    305 BREAKING
+    257 PMQs
+    208 auspol
+    181 StandWithUkraine
+    177 AmiesMovieRating
+    176 Omicron
+    168 Mariupol
+    136 Kyiv
+    135 BA2
+    122 "Russia,Ukraine"
+    120 COVID
+    118 Bales2022FilmChallenge
+    111 Putin
+    108 COVIDisAirborne
+    107 "PutinHitler,StandWithUkraine,PutinHitler,PutinWarCriminal,StopPutinNOW,RussiaSanctions,BoycottRussia"
+    107 ClimateCrisis
+    106 BoycottATP
+    105 Russian
+     98 "cathrynhartt,harttandsoul,actor,actorslife"
+     97 Covid19
+     93 Partygate
+     87 TikTok
+     85 longcovid
+     80 Ottawa
+
+6) Find the 30 hashtags that got retweeted the most
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ grep "retweeted" downloaded_tweets_extend_nolf2.tsv | cut -f 4 | tr -d '"' |tr ',' '\n' | sort | uniq -c || sort -nr | head -31
+  20641 
+   2510 Ukraine
+   1096 COVID19
+   1029 Russia
+    956 LongCovid
+    397 Russian
+    362 BREAKING
+    348 auspol
+    317 Kyiv
+    316 Omicron
+    287 Mariupol
+    274 เจ้าแก้มก้อน
+    240 StandWithUkraine
+    228 Putin
+    222 BA2
+    218 Ukrainian
+    199 fluke_natouch
+    178 PMQs
+    169 COVID
+    146 Covid19
+    138 ableg
+    128 Kharkiv
+    121 โอห์มไง
+    116 Anonymous
+    114 UkraineRussiaWar
+    114 NATO
+    113 UK
+    111 China
+    105 Partygate
+    104 OhmThitiwat
+    104 longcovid
+
+7) Find the 30 hashtags that got replied the most
+]0;luc@sjsu:~/A2[luc@sjsu A2]$  | sort -nr | head -30[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kgrep "replied_to" downloaded_tweets_extend_nolf2.tsv | cut -f 4 | tr -d '"' |tr ',' '\n' | sort | uniq -c  | sort -nr | head -30
+    883 FBPE
+    875 FollowBackFriday
+    429 PutinHitler
+    319 StandWithUkraine
+    263 COVID19
+    216 StopPutinNOW
+    211 RussiaSanctions
+    207 BoycottRussia
+    191 PutinWarCriminal
+    181 bcpoli
+    149 Ottawa
+    130 bced
+    122 COVID19BC
+    115 Genocide
+    108 NeverVoteConservative
+    106 BoycottATP
+    100 onpoli
+     98 LongCovid
+     92 VoteFordOut
+     92 COVIDisAirborne
+     91 Ukraine
+     84 ClimateCrisis
+     77 Putin
+     72 Canada
+     65 cdnpoli
+     65 Apartheid
+     64 UkraineInvasion
+     62 N95
+     60 Ontario
+     58 MaskUp
+
+8) Find the 30 hashtags that got quoted the most
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ grep "quote" downloaded_tweets_extend_nolf2.tsv | cut -f 4 | tr -d '"' |tr ',' '\n' | sort | uniq -c | sorrt -nr | head -30
+    186 COVID19
+    151 StandWithUkraine
+    140 VoteFordOut
+    113 Genocide
+    111 ableg
+    104 onpoli
+    100 NeverVoteConservative
+     93 bcpoli
+     79 Ukraine
+     76 MaskMandate
+     76 COVIDisAirborne
+     72 Ontario
+     65 Putin
+     64 COVID19AB
+     64 BDS
+     61 MaskUp
+     60 PutinHitler
+     59 COVID19BC
+     59 cdnpoli
+     57 Ottawa
+     56 Canada
+     54 bced
+     53 CovidIsNotOver
+     49 LongCovid
+     49 covid19
+     47 PutinWarCriminal
+     46 VoteThemAllOut2022
+     46 FreePalestine
+     44 StopPutinNOW
+     43 VoteLiberal
+]0;luc@sjsu:~/A2[luc@sjsu A2]$ more a2[K[K/[K../a2.txt
+Script started on 2022-09-24 18:18:17-04:00
