@@ -1,7 +1,19 @@
 Script started on 2022-10-10 03:32:57-04:00
-]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk -f '\t' '$6 != "" && NR>1 {print$6"\t"$2}' downloaded_tweets_extend_original_nolf2.tsv | sort > graph1.tsv
-]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk '{print $1}' graph1.tsv | uniq -c | sort -nr | awk '{if ($1 > 2) {print $2}}' > many_replies.txt
+
+1. Represent influence between users as a directional graph of users, save as a list of lines, as described next:
+
+Represent a user A getting a reply from another user B as a line A_ID,B_ID (A_ID and B_ID are the comma separated IDs of user A and B, though you can also tab-separate A_ID and B_ID if it fits you). You can get the replies from the file "downloaded_tweets_extend_original_nolf2.tsv".
+
+All these lines you will place in a csv (or tsv) file, which will essentially be a directed graph.
+]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk -f '\t' '$6 != "" && NR>1 {print$6"\t"$2}' downloaded_tweets_extend_original_nolf2.tsv | sort > graph1.tsv
+
+2. Produce clusters (groups of influence) by ranking the users who got replies by their number of replies. Keep only the largest clusters by "cutting" at a threshold of 3; in order words, keep just the graph for users who got 3 or more replies
+
+]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk '{print $1}' graph1.tsv | uniq -c | sort -nr | awk '{if ($1 > 2) {print $2}}' > many_replies.txt
 ]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk 'NR==FNR {a[$1]; next} $1 in a' many_replies.txt graph1.tsv > graph2.tsv
+
+3. Plot the sizes of clusters as a histogram to show how many clusters of each size resulted.
+
 ]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk '{print $1}' graph2.tsv | uniq -c > graph3.txt
 ]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ ../../../../etc/gnuplot-5.4.4/src/gnuplot
 
@@ -29,8 +41,14 @@ gnuplot> q
 display: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
 less grap	
 
-]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk 'NR==FNR {map[$2] = $0; next} $2 in map {print $0, map[$2]}' downloaded_tweets_extend_original_nolf2.tsv graphh2.tsv | cut -f 5 | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > q4.txt
-]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ cut -f 4 downloaded_tweets_extend_nolf2.tsv | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > A2qq5.txt
+4. Find the 30 most frequent hashtags in these largest clusters of replies you kept (for the users/tweets that got replied to, not the users/tweets doing the replies). Compare to the 30 most frequent hashtags you found in assignment #2 (overall, question 5). Which hashtags appear in these clusters that did not appear in the frequent hashtags from assignment #2 (you can use sort and diff for this)?
+
+The hashtags that appeaer in these clusters that did not appear in the frequent hashtags from assignment #2 are: AlboForPM, Australia, AusVotes2022, capitalism, Comic, covid, CovidIsntOver, FlashbackFriday, GladysLiu, GOLD, GutlessScomo, insiders, IWantARevolution, JoshFrydenberg, LNPMRRRRRRiveFail, MorrisonMustGo, OhmFluke, PerjuryTaylorGreene, VoteJoshOut
+
+]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk 'NR==FNR {map[$2] = $0; next} $2 in map {print $0, map[$2]}' downloaded_tweets_extend_original_nolf2.tsv graph
+h2.tsv | cut -f 5 | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > q4.txt
+]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ cut -f 4 downloaded_tweets_extend_nolf2.tsv | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > A2q
+q5.txt
 ]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ vimdiff <(awk '{print $2}' A2q5.txt | sort) <(awk '{print $2}' q4.txt | sort)
 2 files to edit
 [?2004h[?1049h[22;0;0t[?1h=[?2004h[1;50r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[50;1H"/dev/fd/63" [readonly] 30L, 313C[50;11H2[50;14H[K[50;14H[readonly] 30L, 374C[?2004l[?2004h[?2004l[?2004h[?2004h[?2004l[?2004h[?2004l[?2004h[?2004h[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1H[34m[48;5;248m  [m[48;5;224m                                                              [m[7m|[m
@@ -82,31 +100,74 @@ less grap
      12 1244266306485932034
       7 1244661559948787713
       3 1247612029
-[7mgraph3.txt[27m[K[K [KESCESC:[K     12 1252988129708929024
-:[K[K [KESCESC[KOO[KBB[K      4 1254077828481630208
-:[K[K [KESCESC[KOO[KBB[K      6 1258129712
-:[K[K [KESCESC[KOO[KBB[K      3 1260515654811242498
-:[K[K [KESCESC[KOO[KBB[K      3 1266474230
-:[K[K [KESCESC[KOO[KBB[K      8 1268223690480615424
-:[K[K [KESCESC[KOO[KBB[K      4 1272984661250187266
-:[K[K [KESCESC[KOO[KBB[K      3 1278236816936710144
-:[K[K [KESCESC[KOO[KBB[K      6 1280478731874848769
-:[K[K [KESCESC[KOO[KBB[K      4 1285954032813649923
-:[K[K [KESCESC[KOO[KBB[K     18 1290232189615894531
-:[K[K [KESCESC[KOO[KBB[K     15 1296279134079823872
-:[K[K [KESCESC[KOO[KBB[K      3 130120037
-:[K[K [KESCESC[KOO[KBB[K      3 1309417499398746112
-:[K[K [KESCESC[KOO[KBB[     4 1310293913211744258
-:[K[K [KESCESC[KOO[KBB[K      3 1312166469891813376
-:[K[K [KESCESC[KOO[KBB[K      7 1314241954058833926
-:[K[K [KESCESC[KOO[KBB[K      5 131935861
-:[K[K [KESCESC[KOO[KBB[K      3 1319916075476262914
-:[K[K [KESCESC[KOO[KBB[K      3 1330859882040463362
-[50;1H[K:[K[K[?1l>[?1049l[23;0;0t]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ 
+[7mgraph3.txt[27m[K
+[K [KESCESC:[K     12 1252988129708929024
+:[K
+[K [KESCESC[KOO[KBB
+[K      4 1254077828481630208
+:[K
+[K [KESCESC[KOO[KBB
+[K      6 1258129712
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 1260515654811242498
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 1266474230
+:[K
+[K [KESCESC[KOO[KBB
+[K      8 1268223690480615424
+:[K
+[K [KESCESC[KOO[KBB
+[K      4 1272984661250187266
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 1278236816936710144
+:[K
+[K [KESCESC[KOO[KBB
+[K      6 1280478731874848769
+:[K
+[K [KESCESC[KOO[KBB
+[K      4 1285954032813649923
+:[K
+[K [KESCESC[KOO[KBB
+[K     18 1290232189615894531
+:[K
+[K [KESCESC[KOO[KBB
+[K     15 1296279134079823872
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 130120037
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 1309417499398746112
+:[K
+[K [KESCESC[KOO[KBB
+[     4 1310293913211744258
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 1312166469891813376
+:[K
+[K [KESCESC[KOO[KBB
+[K      7 1314241954058833926
+:[K
+[K [KESCESC[KOO[KBB
+[K      5 131935861
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 1319916075476262914
+:[K
+[K [KESCESC[KOO[KBB
+[K      3 1330859882040463362
+[50;1H
+[K:[K
+[K[?1l>[?1049l[23;0;0t]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ 
 [luc@sjsu A3]$ less graph3.txt [42@display ../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png[C
 display: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
-]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk 'NR==FNR {map[$2] = $0; next} $2 in map {print $0, map[$2]}' downloaded_tweets_extend_original_nolf2.tsv graphh2.tsv | cut -f 5 | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > q4.txt
-]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ cut -f 4 downloaded_tweets_extend_nolf2.tsv | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > A2qq5.txt
+]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ awk 'NR==FNR {map[$2] = $0; next} $2 in map {print $0, map[$2]}' downloaded_tweets_extend_original_nolf2.tsv graph
+h2.tsv | cut -f 5 | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > q4.txt
+]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ cut -f 4 downloaded_tweets_extend_nolf2.tsv | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > A2q
+q5.txt
 ]0;luc@sjsu:~/cs131/A3[luc@sjsu A3]$ vimdiff <(awk '{print $2}' A2q5.txt | sort) <(awk '{print $2}' q4.txt | sort)
 2 files to edit
 [?2004h[?1049h[22;0;0t[?1h=[?2004h[1;50r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[50;1H"/dev/fd/63" [readonly] 30L, 313C[50;11H2[50;14H[K[50;14H[readonly] 30L, 374C[?2004l[?2004h[?2004l[?2004h[?2004h[?2004l[?2004h[?2004l[?2004h[?2004h[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1H[34m[48;5;248m  [m[48;5;224m                                                              [m[7m|[m
