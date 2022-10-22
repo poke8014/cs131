@@ -1,12 +1,31 @@
 Script started on 2022-10-21 20:34:12-04:00
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' |  awk '!/^$/' > all_referenced_tweet_ids_unsorted_error_removed.txt
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | awk '!/id/' > all_retweet_author_idds_unsorted_error_removed.txt
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ paste all_referenced_tweet_ids_unsorted_error_removed.txt all_retweet_author_ids_unsorted_error_removed.txxt | sort > reference_tweet_and_author_ids_sorted.txt
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt tweeets_original.tsv | sort > original_tweet_and_author_ids_sorted.txt
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\\t"$3}' | sort > graph1.txt
+
+0) Find the top 10 users who got retweeted the most from other users (for this you need both files, use fgrep)
+
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10 > top_retweeted_tweet_ids.txt
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweets_ids.txt tweets_original.tsv > top_retweeted_users.txt
+
+1)Represent influence between users as a directional graph of users, save as a list of lines, as described next:
+Represent a user A getting retweeted by another user B
+
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | 
+ awk '!/^$/' > all_referenced_tweet_ids_unsorted_error_removed.txt
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | awk '!/id/' > all_retweet_author_id
+ds_unsorted_error_removed.txt
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ paste all_referenced_tweet_ids_unsorted_error_removed.txt all_retweet_author_ids_unsorted_error_removed.tx
+xt | sort > reference_tweet_and_author_ids_sorted.txt
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt twee
+ets_original.tsv | sort > original_tweet_and_author_ids_sorted.txt
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\
+\t"$3}' | sort > graph1.txt
+
+2) Produce clusters (groups of influence) by ranking the users who got retweeted by their number of people that retweeted them. Keep only the largest clusters by "cutting" at a threshold of 3
+
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk '{print $1}' graph1.txt | uniq -c | sort -nr | awk '{if ($1>2){print $2}}' > many_retweets.txt
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk 'NR==FNR {a[$1]; next} $1 in a' many_retweets.txt graph1.txt > graph2.txt
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk '{print $1}' graph2.txt | uniq -c > graph3.txt
+
+3) Plot the sizes of clusters as a histogram to show how many clusters of each size resulted.
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ ../../../../etc/gnuplot-5.4.4/src/gnuplot
 
 	G N U P L O T
@@ -31,7 +50,40 @@ gnuplot> plot 'graph3.txt' using (bin($1,binwidth)):(1.0) smooth freq with boxes
 gnuplot> exit
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ display ../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png
 display: no decode delegate for this image format `' @ error/constitute.c/ReadImage/576.
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk 'NR==FNR {map[$2] = $0; next} $2 in map {print $0, map[$2]}' tweets_original.tsv graph2.txt | cut -f 55 | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > q4.txt
+
+4) Find the 30 most frequent hashtags in these largest clusters of replies you kept. Compare to the 30 most frequent hashtags you found in assignment #2 (overall, question 5). Which hashtags appear in these clusters that did not appear in the frequent hashtags from assignment #2 
+
+The hashtags that didn't appear in the top replied to tweets but found in top retweeted tweets:
+
+BorisJohnson
+Brexit
+BuildBackBetter
+CloseTheSky
+covid
+COVID19Ab
+CovidRelief
+EndIsraeliApartheid
+foodforest
+FordShitShow
+HumanRights
+Infrastructure
+IStandWithUkraine
+NATO
+NBAAllStar
+NFLDraft2022
+NOWAYHOSAI
+partygate
+PerjuryTaylorGreene
+permaculture
+PlannedParenthood
+RESPECT
+SspeakOutAgainstWorldWar3
+SustainableLife
+WasteWater
+WillSmith
+
+]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk 'NR==FNR {map[$2] = $0; next} $2 in map {print $0, map[$2]}' tweets_original.tsv graph2.txt | cut -f 5
+5 | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > q4.txt
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ cut -f 4 tweets.tsv | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > A2q5.txt
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ vimdiff <(awk '{print $2}' A2q5.txt | sort) <(awk '{print $2}' q4.txt | sort)
 2 files to edit
@@ -63,87 +115,17 @@ display: no decode delegate for this image format `' @ error/constitute.c/ReadIm
 [34m[48;5;248m  [mableg[53C[7m|[m
 [34m[48;5;248m  [m[1m[101mauspol[m[48;5;225m                                                    [m[7m|[m
 [34m[48;5;248m  [m[1m[101mbcpoli[m[48;5;225m                                                    [m[7m|[m
-[1m[7m/proc/1355446/fd/63 [RO]                  1,0-1          Top [m[1;62H[34m[48;5;248m  [m[1m[101m6thWave[m[48;5;225m                                                  [m[2;62H[34m[48;5;248m  [m[48;5;225mB[m[1m[101morisJohnson[m[48;5;225m                                             [m[3;62H[34m[48;5;248m  [m[48;5;225mB[m[1m[101mrexit[m[48;5;225m                                                   [m[4;62H[34m[48;5;248m  [m[1m[101mBuildBackBetter[m[48;5;225m                                          [m[5;62H[34m[48;5;248m  [m[48;5;225mCOVID[m[1m[101m19Ab[m[48;5;225m                                                [m[6;62H[34m[48;5;248m  [m[1m[101mCloseTheSky[m[48;5;225m                                              [m[7;62H[34m[48;5;248m  [m[1m[101mCovidRelief[m[48;5;225m                                              [m[8;62H[34m[48;5;248m  [m[1m[101mEndIsraeliApartheid[m[48;5;225m                                      [m[9;62H[34m[48;5;248m  [m[1m[101mFordShitShow[m[48;5;225m                                             [m[10;62H[34m[48;5;248m  [m[1m[101mHumanRights[m[48;5;225m                                              [m[11;62H[34m[48;5;248m  [m[1m[101mIStandWithUkraine[m[48;5;225m                                        [m[12;62H[34m[48;5;248m  [m[1m[101mInfrastructure[m[48;5;225m                                           [m[13;62H[34m[48;5;248m  [m[1m[101mNATO[m[48;5;225m                                                     [m[14;62H[34m[48;5;248m  [m[1m[101mNBAAllStar[m[48;5;225m                                               [m[15;62H[34m[48;5;248m  [m[1m[101mNFLDraft2022[m[48;5;225m                                             [m[16;62H[34m[48;5;248m  [m[1m[101mNOWAYHOSAI[m[48;5;225m                                               [m[17;62H[34m[48;5;248m  [m[48;5;225mP[m[1m[101merjuryTaylorGreene[m[48;5;225m                                      [m[18;62H[34m[48;5;248m  [m[1m[101mPlannedParenthood[m[48;5;225m                                        [m[19;62H[34m[48;5;248m  [m[48;5;225mR[m[1m[101mESPECT[m[48;5;225m                                                  [m[20;62H[34m[48;5;248m  [m[1m[101mSspeakOutAgainstWorldWar3[m[48;5;225m                                [m[21;62H[34m[48;5;248m  [mStandWithUkraine[22;62H[34m[48;5;248m  [m[48;5;225mS[m[1m[101mustainableLife[m[48;5;225m                                          [m[23;62H[34m[48;5;248m  [mUkraine[24;62H[34m[48;5;248m  [m[1m[101mWasteWater[m[48;5;225m                                               [m[25;62H[34m[48;5;248m  [m[1m[101mWillSmith[m[48;5;225m                                                [m[26;62H[34m[48;5;248m  [mableg[27;62H[34m[48;5;248m  [m[1m[101mcovid[m[48;5;225m                                                    [m[28;62H[34m[48;5;248m  [m[1m[101mfoodforest[m[48;5;225m                                               [m[29;62H[7m/proc/1355446/fd/62 [RO]                 1,1            Top[1;3H[?25h[?12$p[?25l[m[30;110Hq[1;3H[?25h[?25l[30;111H~@k[1;3H[30;110H    [1;3H[?25h[?25l[30;110H:[1;3H[30;1H[K[30;1H:[?2004h[?25hq[?25l[?25h[?25l[?2004h[1;3H6thWave[1;10H[K[2;3HBorisJohnson[2;15H[K[3;3HBrexit[3;9H[K[4;3HBuildBackBetter[4;18H[K[5;3HCOVID19Ab[5;12H[K[6;3HCloseTheSky[6;14H[K[7;3HCovidRelief[7;14H[K[8;3HEndIsraeliApartheid[8;22H[K[9;3HFordShitShow[9;15H[K[10;3HHumanRights[10;14H[K[11;3HIStandWithUkraine[11;20H[K[12;3HInfrastructure[12;17H[K[13;3HNATO[13;7H[K[14;3HNBAAllStar[14;13H[K[15;3HNFLDraft2022[15;15H[K[16;3HNOWAYHOSAI[16;13H[K[17;3HPerjuryTaylorGreene[17;22H[K[18;3HPlannedParenthood[18;20H[K[19;3HRESPECT[19;10H[K[20;3HSspeakOutAgainstWorldWar3[20;28H[K[21;61H[K[22;3HSustainableLife[22;18H[K[23;61H[K[24;3HWasteWater[24;13H[K[25;3HWillSmith[25;12H[K[26;61H[K[27;3Hcovid[27;8H[K[28;3Hfoodforest[28;13H[K[29;1H[34m[48;5;248m  [mpartygate[29;12H[K[30;103H1,1[11CTop[1;3H[?25h[?25l[30;93H:[1;3H[30;1H[K[30;1H:[?2004h[?25hq[?25l[?25h[?25l[?2004l[30;1H[K[30;1H[?2004l[?1l>[?25h[?1049l[23;0;0t]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ grep 1238370241169616897 graph1.txt | uniq | sed 's/\t/,/g' > retweeted_user_connections.csv
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ grep 1238370241169616897 replies1.tsv | uniq | sed 's/\t/,/g' > replied_user_connections.csv
-grep: replies1.tsv: No such file or directory
+[1m[7m/proc/1355446/fd/63 [RO]                  1,0-1          Top [m[1;62H[34m[48;5;248m  [m[1m[101m6thWave[m[48;5;225m                                                  [m[2;62H[34m[48;5;248m  [m[48;5;225mB[m[1m[101morisJohnson[m[48;5;225m                                             [m[3;62H[34m[48;5;248m  [m[48;5;225mB[m[1m[101mrexit[m[48;5;225m                                                   [m[4;62H[34m[48;5;248m  [m[1m[101mBuildBackBetter[m[48;5;225m                                          [m[5;62H[34m[48;5;248m  [m[48;5;225mCOVID[m[1m[101m19Ab[m[48;5;225m                                                [m[6;62H[34m[48;5;248m  [m[1m[101mCloseTheSky[m[48;5;225m                                              [m[7;62H[34m[48;5;248m  [m[1m[101mCovidRelief[m[48;5;225m                                              [m[8;62H[34m[48;5;248m  [m[1m[101mEndIsraeliApartheid[m[48;5;225m                                      [m[9;62H[34m[48;5;248m  [m[1m[101mFordShitShow[m[48;5;225m                                             [m[10;62H[34m[48;5;248m  [m[1m[101mHumanRights[m[48;5;225m                                              [m[11;62H[34m[48;5;248m  [m[1m[101mIStandWithUkraine[m[48;5;225m                                        [m[12;62H[34m[48;5;248m  [m[1m[101mInfrastructure[m[48;5;225m                                           [m[13;62H[34m[48;5;248m  [m[1m[101mNATO[m[48;5;225m                                                     [m[14;62H[34m[48;5;248m  [m[1m[101mNBAAllStar[m[48;5;225m                                               [m[15;62H[34m[48;5;248m  [m[1m[101mNFLDraft2022[m[48;5;225m                                             [m[16;62H[34m[48;5;248m  [m[1m[101mNOWAYHOSAI[m[48;5;225m                                               [m[17;62H[34m[48;5;248m  [m[48;5;225mP[m[1m[101merjuryTaylorGreene[m[48;5;225m                                      [m[18;62H[34m[48;5;248m  [m[1m[101mPlannedParenthood[m[48;5;225m                                        [m[19;62H[34m[48;5;248m  [m[48;5;225mR[m[1m[101mESPECT[m[48;5;225m                                                  [m[20;62H[34m[48;5;248m  [m[1m[101mSspeakOutAgainstWorldWar3[m[48;5;225m                                [m[21;62H[34m[48;5;248m  [mStandWithUkraine[22;62H[34m[48;5;248m  [m[48;5;225mS[m[1m[101mustainableLife[m[48;5;225m                                          [m[23;62H[34m[48;5;248m  [mUkraine[24;62H[34m[48;5;248m  [m[1m[101mWasteWater[m[48;5;225m                                               [m[25;62H[34m[48;5;248m  [m[1m[101mWillSmith[m[48;5;225m                                                [m[26;62H[34m[48;5;248m  [mableg[27;62H[34m[48;5;248m  [m[1m[101mcovid[m[48;5;225m                                                    [m[28;62H[34m[48;5;248m  [m[1m[101mfoodforest[m[48;5;225m                                               [m[29;62H[7m/proc/1355446/fd/62 [RO]                 1,1            Top[1;3H[?25h[?12$p[?25l[m[30;110Hq[1;3H[?25h[?25l[30;111H~@k[1;3H[30;110H    [1;3H[?25h[?25l[30;110H:[1;3H[30;1H[K[30;1H:[?2004h[?25hq[?25l[?25h
+[?25l[?2004h[1;3H6thWave[1;10H[K[2;3HBorisJohnson[2;15H[K[3;3HBrexit[3;9H[K[4;3HBuildBackBetter[4;18H[K[5;3HCOVID19Ab[5;12H[K[6;3HCloseTheSky[6;14H[K[7;3HCovidRelief[7;14H[K[8;3HEndIsraeliApartheid[8;22H[K[9;3HFordShitShow[9;15H[K[10;3HHumanRights[10;14H[K[11;3HIStandWithUkraine[11;20H[K[12;3HInfrastructure[12;17H[K[13;3HNATO[13;7H[K[14;3HNBAAllStar[14;13H[K[15;3HNFLDraft2022[15;15H[K[16;3HNOWAYHOSAI[16;13H[K[17;3HPerjuryTaylorGreene[17;22H[K[18;3HPlannedParenthood[18;20H[K[19;3HRESPECT[19;10H[K[20;3HSspeakOutAgainstWorldWar3[20;28H[K[21;61H[K[22;3HSustainableLife[22;18H[K[23;61H[K[24;3HWasteWater[24;13H[K[25;3HWillSmith[25;12H[K[26;61H[K[27;3Hcovid[27;8H[K[28;3Hfoodforest[28;13H[K[29;1H[34m[48;5;248m  [mpartygate[29;12H[K[30;103H1,1[11CTop[1;3H[?25h[?25l[30;93H:[1;3H[30;1H[K[30;1H:[?2004h[?25hq[?25l[?25h
+[?25l[?2004l[30;1H[K[30;1H[?2004l[?1l>[?25h[?1049l[23;0;0t]0;luc@sjsu:~/cs131/A4
+
+5) A major part of data science is visualizing the results in order to present them to your peers. Without visualizing your results, your results won't get the attention they deserve from other people. Plot a network cluster you got for retweets and a cluster for replies (from this and the previous assignment) in a network visualization tool, such as Gephi.
+
+[luc@sjsu A4]$ grep 1238370241169616897 graph1.txt | uniq | sed 's/\t/,/g' > retweeted_user_connections.csv
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk -F '\t' '$6 != "" && NR>1 {print $6"\t"$2}' tweets_original.tsv | sort > replies1.tsv
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ awk -F '\t' '$6 != "" && NR>1 {print $6"\t"$2}' tweets_original.tsv | sort > replies1.tsv[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep 1238370241169616897 replies1.tsv | uniq | sed 's/\t/,/g' > replied_user_connections.csv
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep 1238370241169616897 replies1.tsv | uniq | sed 's/\t/,/g' > replied_user_connections.csv
 ]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ less a4.txt 
-[?1049h[22;0;0t[?1h=Script started on 2022-10-21 20:34:12-04:00
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e  's/.*id=\(.*\)type.*/\1/' | [7m^M[27m awk '!/^$/' > all_referenced_tweet_ids_unsorted_error_removed.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | awk '!/ id/' > all_retweet_author_id[7m^M[27mds_unsorted_error_removed.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ paste all_referenced_tweet_ids_unsorted_error_removed.txt all_retweet_author_i ds_unsorted_error_removed.tx[7m^M[27mxt | sort > reference_tweet_and_author_ids_sorted.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_uns orted_error_removed.txt twee[7m^M[27mets_original.tsv | sort > original_tweet_and_author_ids_sorted.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_s orted.txt | awk '{print $2"\[7m^M[27m\t"$3}' | sort > graph1.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ awk '{print $1}' graph1.txt | uniq -c | sort -nr | awk '{if ($1>2){print $2}}'  > many_retweets.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ awk 'NR==FNR {a[$1]; next} $1 in a' many_retweets.txt graph1.txt > graph2.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ awk '{print $1}' graph2.txt | uniq -c > graph3.txt
-[7mESC[27m]0;luc@sjsu:~/cs131/A4[7m^G[27m[luc@sjsu A4]$ ../../../../etc/gnuplot-5.4.4/src/gnuplot
 
-        G N U P L O T
-        Version 5.4 patchlevel 4    last modified 2022-07-10 
-
-        Copyright (C) 1986-1993, 1998, 2004, 2007-2022
-        Thomas Williams, Colin Kelley and many others
-
-        gnuplot home:     http://www.gnuplot.info
-        faq, bugs, etc:   type "help FAQ"
-        immediate help:   type "help"  (plot window: hit 'h')
-
-Terminal type is now 'unknown'
-gnuplot> set output "xyz.png"
-[7ma4.txt[27m[K[K [KESCESC[KESCESC[K [K::[Kww[K:[K[K[?1l>[?1049l[23;0;0t]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ git status
-On branch main
-Your branch is up to date with 'origin/main'.
-
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-	[31mdeleted:    ../A1/a1.txt[m
-	[31mdeleted:    ../A2/a2.txt[m
-	[31mdeleted:    ../A3/a3.txt[m
-	[31mdeleted:    ../A3/graph1.tsv[m
-	[31mdeleted:    ../A3/graph2.tsv[m
-	[31mdeleted:    ../A3/xyz.png[m
-	[31mdeleted:    ../cmds.log[m
-	[31mdeleted:    ../ws1/cmds.log[m
-	[31mdeleted:    ../ws2/cmds.log[m
-	[31mdeleted:    ../ws3/cmds.log[m
-	[31mdeleted:    ../ws3/ws3.txt[m
-	[31mdeleted:    ../ws4/README.txt[m
-	[31mdeleted:    ../ws4/cmds.log[m
-	[31mdeleted:    ../ws4/ws4.txt[m
-	[31mdeleted:    ../ws5/ws5.txt[m
-	[31mdeleted:    ../ws6/cmds.log[m
-	[31mdeleted:    ../ws6/ws6.txt[m
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-	[31m./[m
-	[31m../tweets.tsv[m
-	[31m../tweets_original.tsv[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ git add a4.txt 
-fatal: Unable to create '/home/luc/cs131/.git/index.lock': No space left on device
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ git add a4.txt [5Pstatusadd a4.txt [Kls
-A2q5.txt                                             q4.txt
-a4.txt                                               reference_tweet_and_author_ids_sorted.txt
-all_referenced_tweet_ids_unsorted_error_removed.txt  replied_user_connections.csv
-all_retweet_author_ids_unsorted_error_removed.txt    replies1.tsv
-graph1.txt                                           retweeted_user_connections.csv
-graph2.txt                                           tweets.tsv
-graph3.txt                                           tweets_original.tsv
-many_retweets.txt                                    [0m[38;5;13mxyz.png[0m
-original_tweet_and_author_ids_sorted.txt
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ cp[K[Krm re[K[K*.tsv
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ ls
-A2q5.txt                                             many_retweets.txt
-a4.txt                                               original_tweet_and_author_ids_sorted.txt
-all_referenced_tweet_ids_unsorted_error_removed.txt  q4.txt
-all_retweet_author_ids_unsorted_error_removed.txt    reference_tweet_and_author_ids_sorted.txt
-graph1.txt                                           replied_user_connections.csv
-graph2.txt                                           retweeted_user_connections.csv
-graph3.txt                                           [0m[38;5;13mxyz.png[0m
-]0;luc@sjsu:~/cs131/A4[luc@sjsu A4]$ git add xyz.png 
-]0;luc@sjsu
+6) Describe in a few sentences (2-3 sentences) what the networks you plotted show at the bottom of a4.txt.
+Retweets: user 1238370241169616897 had 146 retweeted tweets, but only 5 connections. This user probably has a dedicated group of followers.
+Replies: user 1238370241169616897 had 15 replies, including one to themselves. Given the difference in number of replies and retweets they received, they most likely post images that other users like retweeting, but not replying to.
