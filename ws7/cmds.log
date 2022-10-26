@@ -1,0 +1,4 @@
+   60  mkdir ws7
+   61  cd ws7
+   62  script ws7.txt
+   63  history > cmds.log

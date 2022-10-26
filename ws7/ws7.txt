@@ -1,0 +1,22 @@
+Script started on 2022-10-26 02:59:19-04:00
+
+SELECTED PRODUCT: 0262181533
+Removing all commas, dots, semicolons, and these stopwords:  and or if in it.
+Removing all html tags, such as <br />
+
+]0;luc@sjsu:~/cs131/ws7[luc@sjsu ws7]$ grep 0262181533 ../../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' '{print $14}' | sed -r 's/\b(and|orr|if|in|it|)\b//g;s/[,.:]//g;s/<[^>]*>//g'
+Review based on a cursory examination by University of Phoenix students  Philosophy 251  We have found the book to be well organized  detailed The structure placed the information  an easy to read  presentable manner The use of strong  sound proofs by experiment  examples supported the overall logic of reasoning  a clear  concise manner We have found the book to be well thought out  laid out so the reader can learn  follow what is being explained 
+I must say that I tend to like Rips' side of this better than Johnson-Laird's  His experiments were more thorough  better organized but they fall to the same critique I gave J-L they were designed to get the results they got  I preferred Rips' side of things even before reading the book which is why I think  may not be possible to design better experiments--I've yet to meet anyone familiar with the debate who didn't already before familiarizing himself with the debate have an entrenched opinion on the matter  But this is no reason not to read up on the subject  This is a central book  the cognitive sciences is very well done  makes for exciting mind-stimulating reading  But there is plenty of work to be done on the topic  neither J-L nor Rips have done   Given human nature such may not be possible
+
+
+STORING INTO A FILE
+]0;luc@sjsu:~/cs131/ws7[luc@sjsu ws7]$ grep 0262181533 ../../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' '{print $14}' | sed -r 's/\b(and|orr|if|in|it|)\b//g;s/[,.:]//g;s/<[^>]*>//g' > 012[K[K262181533_cleaned.txt
+
+
+DISPLAYING FILE CONTENTS
+]0;luc@sjsu:~/cs131/ws7[luc@sjsu ws7]$ cat 0262181533_cleaned.txt 
+Review based on a cursory examination by University of Phoenix students  Philosophy 251  We have found the book to be well organized  detailed The structure placed the information  an easy to read  presentable manner The use of strong  sound proofs by experiment  examples supported the overall logic of reasoning  a clear  concise manner We have found the book to be well thought out  laid out so the reader can learn  follow what is being explained 
+I must say that I tend to like Rips' side of this better than Johnson-Laird's  His experiments were more thorough  better organized but they fall to the same critique I gave J-L they were designed to get the results they got  I preferred Rips' side of things even before reading the book which is why I think  may not be possible to design better experiments--I've yet to meet anyone familiar with the debate who didn't already before familiarizing himself with the debate have an entrenched opinion on the matter  But this is no reason not to read up on the subject  This is a central book  the cognitive sciences is very well done  makes for exciting mind-stimulating reading  But there is plenty of work to be done on the topic  neither J-L nor Rips have done   Given human nature such may not be possible
+]0;luc@sjsu:~/cs131/ws7[luc@sjsu ws7]$ exit
+
+Script done on 2022-10-26 03:00:02-04:00
