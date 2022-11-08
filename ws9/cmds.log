@@ -1,0 +1,1000 @@
+    8  DATETIME=$(date)
+    9  DATETIME
+   10  echo DATETIME
+   11  DATETIME=$(date)
+   12  echo $DATETIME
+   13  cd ..
+   14  ls
+   15  rm ws6
+   16  rm -r ws6
+   17  cd ..
+   18  ls
+   19  cd ..
+   20  ls
+   21  cd mnt
+   22  ls
+   23  cd scratch/
+   24  ls
+   25  cd luc
+   26  mkdir ws6
+   27  cd ws6
+   28  echo $PATH
+   29  crontab -l
+   30  crontab -u -e
+   31  crontab -e
+   32  crontab -l
+   33  crontab -r
+   34  crontab -l
+   35  vi cronshell.sh
+   36  cat cronshell.sh 
+   37  mkdir PRODUCTS
+   38  ls
+   39  vi cronshell.sh
+   40  rmdir PRODUCTS/
+   41  crontab -e
+   42  ls -l
+   43  latr -l
+   44  ls -latr
+   45  cd ..
+   46  ls
+   47  wget    https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Books_v1_02.tsv.gz
+   48  ls
+   49  gunzip amazon_reviews_us_Books_v1_02.tsv.gz 
+   50  ls
+   51  cd ws6
+   52  ls -latr
+   53  log
+   54  ls
+   55  ls -latr
+   56  ls -l
+   57  vi cronshell.sh 
+   58  crontab -e
+   59  cat cronshell.sh 
+   60  ls
+   61  ls -latr
+   62  ls -l
+   63  ls 
+   64  ls -l
+   65  ls
+   66  crontab -r
+   67  crontab -l
+   68  echo cronshell.sh 
+   69  cat cronshell.sh 
+   70  fgrep "0312864590" /mnt/scratch/luc/amazon_reviews_us_Books_v1_02.tsv > /home/luc/PRODUCTS/0312864590.txt
+   71  mkdir PRODUCTS
+   72  fgrep "0312864590" /mnt/scratch/luc/amazon_reviews_us_Books_v1_02.tsv > /home/luc/ws6/PRODUCTS/0312864590.txt
+   73  fgrep "0312864590" /mnt/scratch/luc/amazon_reviews_us_Books_v1_02.tsv > /mnt/scratch/luc/ws6/PRODUCTS/0312864590.txt
+   74  ls
+   75  cd PRODUCTS/
+   76  ls
+   77  cat 0312864590.txt 
+   78  cd ..
+   79  vi cronshell.sh 
+   80  crontab -e
+   81  ls
+   82  cat db.log 
+   83  crontab -r
+   84  cd PRODUCTS/
+   85  ls
+   86  cat 0312864590.txt 
+   87  cd ..
+   88  cat cronshell.sh 
+   89  vi cronshell.sh 
+   90  crontab -e
+   91  ls
+   92  cat db.log 
+   93  cd PRODUCTS/
+   94  ls
+   95  cd ..
+   96  ls -latr
+   97  rm db.log
+   98  ls
+   99  cat db.log 
+  100  cat cronshell.sh 
+  101  ls -l
+  102  chmod +x /mnt/scratch/luc/ws6/cronshell.sh 
+  103  ls -l
+  104  ls
+  105  cat 20221018_193603.log 
+  106  ls
+  107  crontab -r
+  108  ls
+  109  cat db.log 
+  110  cat 20221018_193603.log 
+  111  ls
+  112  cd PRODUCTS/
+  113  ls
+  114  cd ..
+  115  ls
+  116  vi cronshell.sh 
+  117  crontab -e
+  118  crontab -l
+  119  ls
+  120  l
+  121  s
+  122  ls PRODUCTS/
+  123  LS
+  124  ls
+  125  crontab -r
+  126  rm *.log
+  127  ls
+  128  cd PRODUCTS/
+  129  ls
+  130  rm *.txt
+  131  ls
+  132  cd ..
+  133  ls
+  134  vi cronshell.sh 
+  135  crontab -e
+  136  ls
+  137  crontab -l
+  138  ls
+  139  cd ..
+  140  ls
+  141  head -1 amazon_reviews_us_Books_v1_02.tsv 
+  142  cd ws6/
+  143  ls
+  144  echo $PATH
+  145  crontab -e
+  146  ls
+  147  cd PRODUCTS/
+  148  ls
+  149  cd ..
+  150  crontab -l
+  151  crontab -e
+  152  ls
+  153  cat cronshell.sh 
+  154  ls
+  155  crontab -r
+  156  cd PRODUCTS/
+  157  ls
+  158  cat 0312864590.LATEST.txt 
+  159  CD ..
+  160  cd .
+  161  cd ..
+  162  ls
+  163  rm *.log
+  164  cd PRODUCTS/
+  165  RM *.txt
+  166  rm *.txt
+  167  ls
+  168  cd ..
+  169  vi cronshell.sh 
+  170  crontab -l
+  171  crontab -e
+  172  ls
+  173  cat db.log 
+  174  ls
+  175  cd PRODUCTS/
+  176  ls
+  177  cat 0312864590.AVGRATING.txt 
+  178  cat 0312864590.LATEST.txt 
+  179  ls
+  180  cat 0312864590.AVGRATING.txt 
+  181  vi 0312864590.AVGRATING.txt 
+  182  cd ..
+  183  crontab -r
+  184  vi cronshell.sh 
+  185  crontab -e
+  186  ls
+  187  cat db.log 
+  188  ls
+  189  cd PRODUCTS/
+  190  ls
+  191  l
+  192  ls
+  193  l
+  194  sls
+  195  ls
+  196  rm *.txt
+  197  ls
+  198  cd ..
+  199  ls
+  200  rm *.log
+  201  ls
+  202  crontab -l
+  203  ls
+  204  crontab -r
+  205  crontab -e
+  206  crontab -l
+  207  ls
+  208  cd PRODUCTS/
+  209  ls
+  210  cat 0312864590.AVGRATING.txt 
+  211  ls
+  212  cat 0312864590.AVGRATING.txt 
+  213  cd ..
+  214  crontab -r
+  215  ls
+  216  rm db.log
+  217  cd PRODUCTS/
+  218  cd .
+  219  cd ..
+  220  vi cronshell.sh 
+  221  crontab -e
+  222  ls
+  223  cd PRODUCTS/
+  224  ls
+  225  cat 0312864590.AVGRATING.txt 
+  226  head 0312864590.LATEST.txt 
+  227  head -1 0312864590.LATEST.txt 
+  228  cd ..
+  229  crontab -r
+  230  ls
+  231  rm db.log 
+  232  cd PRODUCTS/
+  233  ls
+  234  rm *.txt
+  235  ls
+  236  cd ..
+  237  vi cronshell.sh 
+  238  crontab -e
+  239  ls
+  240  cd PRODUCTS/
+  241  ls
+  242  cat 0312864590.AVGRATING.txt 
+  243  cd ..
+  244  ls
+  245  crontab -r
+  246  rm db.log 
+  247  cd PRODUCTS/
+  248  ls
+  249  rm *.txt
+  250  ls
+  251  cd ..
+  252  exit
+  253  mkdir ws6
+  254  cd ws6
+  255  script ws6.txt
+  256  vi cronshell.sh
+  257  crontab -e
+  258  crontab -l
+  259  cat cronshell.sh 
+  260  ls
+  261  cd ..
+  262  ls
+  263  cd ..
+  264  ls
+  265  cd cs131
+  266  cd ws6
+  267  ls
+  268  crontab -l
+  269  less ws6.txt
+  270  ls
+  271  cd ..
+  272  rm -r ws6
+  273  ls
+  274  vi cronshell.sh
+  275  chmod +x ~/cs131/ws6/cronshell.sh 
+  276  crontab -e
+  277  cat cronshell.sh 
+  278  crontab -l
+  279  ls
+  280  cd PRODUCTS/
+  281  cat 0262181533.AVGRATING.txt 
+  282  less ../ws6.txt
+  283  cd ..
+  284  git status
+  285  cd ws6
+  286  ls
+  287  history > cmds.log
+  288  ls
+  289  git add cmds.log 
+  290  git add ws6.txt 
+  291  git status
+  292  git commit -m "worksheet 6 completed"
+  293  git push origin main
+  294  cat cronshell.sh 
+  295  exit
+  296  mkdir ws6
+  297  cd ws6
+  298  script ws6.txt
+  299  exit
+  300  mkdir ws6
+  301  cd ws6
+  302  script ws6.txt
+  303  exit
+  304  mkdir ws6
+  305  cd ws6
+  306  script ws6.txt
+  307  mkdir ws6
+  308  cd ws6/
+  309  script ws6.txt
+  310  cd ..
+  311  ls
+  312  cd ..
+  313  cd mnt
+  314  cd scratch/
+  315  cd luc
+  316  ls
+  317  cd cs131/
+  318  ls
+  319  cd ws6/
+  320  ls
+  321  cd ..
+  322  rm -r ws6/
+  323  mkdir ws6
+  324  cd ws6/
+  325  script ws6.txt
+  326  vi cronshell.sh
+  327  chmod +x /mnt/scratch/luc/cs131/ws6/cronshell.sh
+  328  crontab -e
+  329  crontab -l
+  330  cat cronshell.sh 
+  331  ls
+  332  cd PRODUCTS/
+  333  ls
+  334  cat 0262181533.AVGRATING.txt 
+  335  less ../ws6.txt 
+  336  cd ..
+  337  ls
+  338  vi cronshell.sh 
+  339  ls
+  340  crontab -e
+  341  ls
+  342  cd PRODUCTS/
+  343  cat 0262181533.AVGRATING.txt 
+  344  ls
+  345  cd cs131
+  346  ls
+  347  cd ..
+  348  ls
+  349  cd mnt/
+  350  cd scratch/
+  351  cd luc
+  352  ls
+  353  cd cs131
+  354  mkdir A4
+  355  cd ..
+  356  cp /home/test/A1/downloaded_tweets_extend_original_nolf2.tsv tweets_original.tsv
+  357  ls
+  358  head -1 tweets_original.tsv 
+  359  cp /home/test/A1/downloaded_tweets_extend_nolf2.tsv tweets_original.tsv
+  360  cp /home/test/A1/downloaded_tweets_extend_nolf2.tsv tweets.tsv
+  361  cp /home/test/A1/downloaded_tweets_extend_original_nolf2.tsv tweets_original.tsv
+  362  ls
+  363  head -1 tweets_o
+  364  head -1 tweets_original.tsv 
+  365  head -1 tweets.tsv 
+  366  head -2 tweets.tsv 
+  367  head -2 tweets_original.tsv 
+  368  head tweets.tsv 
+  369  head tweets_original.tsv 
+  370  ls
+  371  cd cs131
+  372  ls
+  373  cd A4
+  374  cp ../../tweets_original.tsv .
+  375  cp ../../tweets.tsv 
+  376  cp ../../tweets.tsv .
+  377  ls
+  378  head -1 tweets.tsv 
+  379  fgrep "retweeted" tweets.tsv 
+  380  fgrep "retweeted" tweets.tsv | awk -F '($2 != $6) {print $2}' | sort -r | uniq -c | sort -nr
+  381  fgrep "retweeted" tweets.tsv | awk -F '\t' '($2 != $6) {print $2}' | sort -r | uniq -c | sort -nr
+  382  head -3 tweets.tsv 
+  383  fgrep "retweeted" tweets.tsv | awk -F '\t' '($2 != $6) {print $6}' | sort -r | uniq -c | sort -nr
+  384  fgrep "retweeted" tweets.tsv | fgrep "id=* type=retweeted"
+  385  fgrep "id=* type=retweeted" tweets.tsv 
+  386  fgrep "retweeted" tweets.tsv | sed -e 's/id=\(.*\)type=retweeted/\1/'
+  387  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/'
+  388  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r
+  389  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr
+  390  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | head -10
+  391  fgrep "retweeted" tweets.tsv | head -10
+  392  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | head -10 > top_retweeted.tsv
+  393  cat top_retweeted.tsv 
+  394  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq | sort -nr | head -10
+  395  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10
+  396  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10 > top_retweeted_tweet_ids.tsv
+  397  cat top_retweeted
+  398  ls
+  399  rm top_retweeted.tsv 
+  400  ls
+  401  cat top_retweeted_tweet_ids.tsv 
+  402  head -1 tweets_original.tsv 
+  403  awk 'NR==FNR {a[$1];next} $2 in a{print$1}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  404  awk 'NR==FNR{a[$1];next} $1 in a{print $1}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  405  awk 'NR==FNR{a[$1];next} $2 in a{print $2}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  406  awk 'NR==FNR{a[$1];next} $1 in a{print $1}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  407  head -10 tweets_original.tsv 
+  408  sort -k 1 tweets_original.tsv 
+  409  awk '{print $1}' tweets_original.tsv | sort 
+  410  awk 'NR==FNR{a[$1];next} $1 in a{print $1}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  411  cat top_retweeted_tweet_ids.tsv 
+  412  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10
+  413  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10 | sort
+  414  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10 | sort > top_retweeted_tweet_ids.tsv 
+  415  awk 'NR==FNR{a[$1];next} $1 in a{print $1}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  416  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  417  fgrep "18831926" tweets_original.tsv 
+  418  cat top_retweeted_tweet_ids.tsv 
+  419  fgrep "18831926" tweets_original.tsv | fgrep "1516513505696010243"
+  420  fgrep "18831926" tweets_original.tsv | fgrep "1511282321789538313"
+  421  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | head
+  422  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | head
+  423  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | head
+  424  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '
+  425  fgrep "retweeted" tweets.tsv | head
+  426  head -1 tweets.tsv 
+  427  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $6}' | head -10
+  428  fgrep "retweeted" tweets.tsv | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | head -10
+  429  fgrep "1497678663046905863" tweets.tsv
+  430  fgrep "1497678663046905863" tweets_original.tsv
+  431  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweet_ids.tsv tweets_original.tsv 
+  432  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweet_ids.tsv tweets_original.tsv > top_retweeted_users.txt
+  433  cat top_retweeted_tweet_ids.tsv 
+  434  mv top_retweeted_tweet_ids.tsv top_retweeted_tweet_ids.txt
+  435  ls
+  436  exit
+  437  ls
+  438  cd ..
+  439  ls
+  440  cd ..
+  441  ls
+  442  cd mnt/
+  443  cd scratch/luc/
+  444  ls
+  445  cd cs131
+  446  ls
+  447  cd A4
+  448  awk -F '\t' '$6 != "" && NR>1 {print $6"\t"$2}' tweets_original.tsv | sort
+  449  head tweets_original.tsv 
+  450  awk -F '\t' '$6 != "" && NR>1 {print $6"\t"$2}' tweets_original.tsv | sort
+  451  awk -F '\t' '$6 != "" && NR>1 {print $6"\t"$2}' tweets_original.tsv | sort > graph1.tsv
+  452  awk '{print $1}' graph1.tsv | uniq -c | sort -nr | awk '{if ($1 > 2) {print $2}}'
+  453  awk '{print $1}' graph1.tsv | uniq -c | sort -nr
+  454  awk '{print $1}' graph1.tsv | uniq -c | sort -nr | awk '{if ($1 > 2) {print $2}}'
+  455  awk '{print $1}' graph1.tsv | uniq -c | sort -nr | awk '{if ($1 > 2) {print $2}}' > many_replies.txt
+  456  awk 'NR==FNR {a[$1]; next} $1 in a' many_replies.txt graph1.tsv
+  457  head graph1.tsv 
+  458  head graph1.tsv | sort
+  459  cat graph1.tsv | sort
+  460  ls
+  461  rm graph1.tsv 
+  462  rm many_replies.txt 
+  463  ls
+  464  fgrep "retweeted" tweets.tsv
+  465  fgrep "retweeted" tweets.tsv | awk '{ (if $2!=$6)}'
+  466  fgrep "retweeted" tweets.tsv | awk '{if ($2!=$6)}'
+  467  fgrep "retweeted" tweets.tsv | awk '{if ($2!=$6){print $5}}'
+  468  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}'
+  469  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10
+  470  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr
+  471  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | head
+  472  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10
+  473  cp /home/test/A1/downloaded_tweets_extend_original_nolf2.tsv .
+  474  ls
+  475  rm downloaded_tweets_extend_original_nolf2.tsv 
+  476  ls
+  477  cat top_retweeted_ids.txt 
+  478  cat top_retweeted_tweet_ids.txt 
+  479  cat top_retweeted_tweet_ids.txt | sort
+  480  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10
+  481  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10 | sort
+  482  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10 | sort > top_retweeted_tweet_ids.txt 
+  483  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweets_ids.txt tweets_original.tsv
+  484  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweets_ids.txt tweets_original.txt
+  485  ls
+  486  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | head -10 | sort > top_retweeted_tweet_ids.txt 
+  487  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweets_ids.txt tweets_original.tsv > top_retweeted_users.txt
+  488  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweet_ids.txt tweets_original.tsv > top_retweeted_users.txt
+  489  cat top_retweeted_users.txt 
+  490  head tweets_original.tsv 
+  491  awk 'NR==FNR{a[$1];next} $6 in a{print $6'\t'$2}' top_retweeted_users.txt tweets_original.tsv 
+  492  awk 'NR==FNR{a[$1];next} $1 in a{print $6'\t'$2}' top_retweeted_users.txt tweets_original.tsv 
+  493  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_users.txt tweets_original.tsv 
+  494  awk 'NR==FNR{a[$1];next} $1 in a{print $6}' top_retweeted_users.txt tweets_original.tsv 
+  495  awk 'NR==FNR{a[$1];next} $6 in a{print $1}' top_retweeted_users.txt tweets_original.tsv 
+  496  awk 'NR==FNR{a[$1];next} $1 in a{print $6}' top_retweeted_users.txt tweets_original.tsv 
+  497  awk 'NR==FNR{a[$1];next} $1 in a{print $6}' top_retweeted_users.txt tweets_original.tsv > test.txt
+  498  cat test.txt 
+  499  ls
+  500  head test.txt 
+  501  rm test.txt 
+  502  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_users.txt tweets_original.tsv > graph.txt
+  503  cat graph.txt 
+  504  awk 'NR==FNR{a[$1];next} $1 in a{print $6}' top_retweeted_users.txt tweets_original.tsv
+  505  awk 'NR==FNR{a[$1];next} $6 in a{print $6}' top_retweeted_users.txt tweets_original.tsv
+  506  fgrep "retweeted" tweets_original.tsv 
+  507  awk 'NR==FNR{a[$1];next}($6 in a){print $6}' top_retweeted_tweet_ids.txt tweets_original.tsv
+  508  awk 'NR==FNR{a[$1];next}($6 in a){print $6}' top_retweeted_users.txt tweets_original.tsv
+  509  awk 'NR==FNR{a[$1];next}{print a}' top_retweeted_users.txt tweets_original.tsv
+  510  awk 'NR==FNR{a[$1]{printa[$1]}' top_retweeted_users.txt tweets_original.tsv
+  511  awk 'NR==FNR{a[$1]{print a[$1]}}' top_retweeted_users.txt tweets_original.tsv
+  512  awk 'NR==FNR{a[$1](print a[$1])}' top_retweeted_users.txt tweets_original.tsv
+  513  awk 'NR==FNR{a[$1];next} $2 in a{print $2}' top_retweeted_users.txt tweets_original.tsv
+  514  awk 'NR==FNR{a[$1];next} $2 in a{print $6'\t'$2}' top_retweeted_users.txt tweets_original.tsv
+  515  head -1 tweets_original.tsv 
+  516  awk '{print$6}' tweets_original.tsv 
+  517  awk -F '\t' 'NR==FNR{a[$1];next} $6 in a{print $6'\t'$2}' top_retweeted_users.txt tweets_original.tsv
+  518  awk -F '\t' 'NR==FNR{a[$1];next} $6 in a{print $6"\t"$2}' top_retweeted_users.txt tweets_original.tsv
+  519  awk -F '\t' 'NR==FNR{a[$1];next} $6 in a{print $6"\t"$2}' top_retweeted_users.txt tweets_original.tsv | sort
+  520  awk -F 'NR==FNR{a[$1];next} $6 in a{print $6"\t"$2}' top_retweeted_users.txt tweets_original.tsv | sort
+  521  awk -F '\t' 'NR==FNR{a[$1];next} $6 in a{print $6"\t"$2}' top_retweeted_users.txt tweets_original.tsv | sort
+  522  awk -F '\t' 'NR==FNR{id[$1];next} $6 in a{ if ($2!=$6) {print $6"\t"$2}}' top_retweeted_users.txt tweets_original.tsv | sort
+  523  awk -F '\t' 'NR==FNR{id[$1];next} $6 in a{print $6"\t"$2}' top_retweeted_users.txt tweets_original.tsv | sort
+  524  awk -F '\t' 'NR==FNR{id[$1];next} $6 in id{ if ($2!=$6){print $6"\t"$2}}' top_retweeted_users.txt tweets_original.tsv | sort
+  525  grep 18831926 tweets_original.tsv 
+  526  grep 18831926 tweets_original.tsv | awk -F '\t' '{if ($2!=$6)}'
+  527  grep 18831926 tweets_original.tsv | awk -F '\t' '{if ($2!=$6){print $0}}'
+  528  grep 18831926 tweets.tsv | awk -F '\t' '{if ($2!=$6){print $0}}'
+  529  cd ..
+  530  cd mnt/scratch/luc/cs131/
+  531  ls
+  532  cd A4
+  533  ls
+  534  rm graph.txt 
+  535  head tweets_original.tsv 
+  536  grep retweeted tweets_original.tsv | head
+  537  grep retweeted tweets_original.tsv | awk -F '\t' '{if ($2!=$6){print $6}}' | sort -r | uniq -c | sort -nr
+  538  grep retweeted tweets_original.tsv | awk -F '\t' '{if ($2!=$6){print $6}}'
+  539  grep retweeted tweets_original.tsv 
+  540  fgrep retweeted tweets_original.tsv 
+  541  fgrep retweeted tweets.tsv 
+  542  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | sort > retweeted_tweet_ids.txt
+  543  less retweeted_tweet_ids.txt 
+  544  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' top_retweeted_tweet_ids.txt tweets_original.tsv | sort
+  545  cat retweeted_tweet_ids.txt 
+  546  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' retweeted_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c
+  547  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' retweeted_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | head -10
+  548  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' retweeted_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | head -10 | awk '{print $2}'
+  549  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' retweeted_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | head -10 | awk '{print $2}' > top_retweeted_users.txt 
+  550  ls
+  551  rm top_retweeted_tweet_ids.txt 
+  552  awk -F '\t' 'NR==FNR{id[$1];next} $6 in id{ if ($2!=$6){print $6"\t"$2}}' top_retweeted_users.txt tweets_
+  553  original.tsv | sort
+  554  awk -F '\t' 'NR==FNR{id[$1];next} $6 in id{ if ($2!=$6){print $6"\t"$2}}' top_retweeted_users.txt tweets_original.tsv | sort
+  555  cat top_retweeted_users.txt 
+  556  ls
+  557  cat retweeted_tweet_ids.txt 
+  558  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' retweeted_tweet_ids.txt tweets_original.tsv
+  559  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' retweeted_tweet_ids.txt tweets_original.tsv |wc
+  560  less tweets_original.tsv 
+  561  fgrep "retweeted" tweets_original.tsv 
+  562  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/'
+  563  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5"\t"$2}}' | sed -e 's/.*id=\(.*\)type.*/\1/'
+  564  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5"\t"$2}}'
+  565  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5"\t"$2}}' > rt_author.txt
+  566  ls
+  567  fgrep retweeted tweets.tsv  | awk '/id=/
+  568  fgrep retweeted tweets.tsv  | awk '/id=/{print$2; next}1'
+  569  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | sort
+  570  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | sort > reference_tweet_ids.txt
+  571  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | sort -r | uniq -c | sort -nr | awk '{print $2}' | sort
+  572  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | sort -r | uniq -c | sort -nr | awk '{print $2}'
+  573  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | sort -r | uniq -c | sort -nr 
+  574  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}'
+  575  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr 
+  576  ls
+  577  cat rt_author.txt 
+  578  ls
+  579  rm rt_author.txt 
+  580  ls
+  581  less reference_tweet_ids.txt 
+  582  ls
+  583  less retweeted_tweet_ids.txt 
+  584  less reference_tweet_ids.txt 
+  585  rm reference_tweet_ids.txt 
+  586  rm retweeted_tweet_ids.txt 
+  587  rm top_retweeted_users.txt 
+  588  ls
+  589  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | sort > reference_tweet_ids.txt
+  590  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | head -10 | awk '{print $2}'
+  591  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | head -10 
+  592  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | head -10 | awk '{print $2}' | top_retweeted_users.txt
+  593  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/'
+  594  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr 
+  595  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | awk '{print $2}
+  596  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | awk '{print $2}'
+  597  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | awk '{print $2}' > all_retweeted_users.txt
+  598  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | awk '{print $1"\t"$2}'
+  599  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr
+  600  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' reference_tweet_ids.txt tweets_original.tsv | sort -r -k 2 | uniq -c | sort -nr
+  601  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' reference_tweet_ids.txt tweets_original.tsv | sort -r | uniq -c | sort -nr
+  602  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' | sort > retweeted_tweet_ids.txt
+  603  less tweets.tsv 
+  604  ls
+  605  rm all_retweeted_users.txt 
+  606  rm reference_tweet_ids.txt 
+  607  rm top_retweeted_users.txt 
+  608  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | sort -r | uniq -c | sort -nr | awk '{print $2}' > referenced_tweet_id.txt
+  609  awk 'NR==FNR{a[$1];next} $1 in a{print $2}' referenced_tweet_id.txt tweets_original.tsv | sort -r | uniq -c | sort -nr | head -10 | awk '{print $2}' > top_retweeted_users.txt
+  610  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' > all_referenced_tweet_ids_unsorted.txt
+  611  ls
+  612  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' > all_retweet_author_ids_unsorted.txt
+  613  paste all_retweet_author_ids_unsorted.txt all_referenced_tweet_ids_unsorted.txt | column -s $'\t' -t > authors_and_reference_id_tweets_unsorted.txt
+  614  less authors_and_reference_id_tweets_unsorted.txt 
+  615  ls
+  616  awk 'NR==FNR{a[$1];next} $1 in a{print $2"\t"$1}' referenced_tweet_id.txt tweets_original.tsv 
+  617  awk 'NR==FNR{a[$1];next} $1 in a{print $2"\t"$1}' referenced_tweet_id.txt tweets_original.tsv > original_author_and_tweet_ids_unsorted.txt 
+  618  less authors_and_reference_id_tweets_unsorted.txt 
+  619  awk -F '\t'
+  620  awk -F '\t' '{print$1} authors_and_reference_id_tweets_unsorted.txt 
+  621  awk -F '\t' '{print$1}' authors_and_reference_id_tweets_unsorted.txt 
+  622  paste all_retweet_author_ids_unsorted.txt all_referenced_tweet_ids_unsorted.txt
+  623  paste all_retweet_author_ids_unsorted.txt all_referenced_tweet_ids_unsorted.txt > authors_and_reference_id_tweets_unsorted.txt
+  624  awk 'NR==FNR{a[$1];next} $1 in a{print $2"\t"$1}' referenced_tweet_id.txt tweets_original.tsv > original_author_and_tweet_ids_unsorted.txt 
+  625  less original_author_and_tweet_ids_unsorted.txt 
+  626  awk 'NR==FNR{a[$1];next} $1 in a{print $2"\t"$1}' referenced_tweet_id.txt tweets_original.tsv | sort -k 2
+  627  awk 'NR==FNR{a[$1];next} $1 in a{print $2"\t"$1}' referenced_tweet_id.txt tweets_original.tsv | sort -k 2> original_author_and_tweet_ids_sorted.txt
+  628  paste all_retweet_author_ids_unsorted.txt all_referenced_tweet_ids_unsorted.txt | sort -k 2 > authors_and_reference_id_tweets_sorted.txt
+  629  less authors_and_reference_id_tweets_sorted.txt 
+  630  paste all_retweet_author_ids_unsorted.txt all_referenced_tweet_ids_unsorted.txt | sort -k 2 > authors_and_reference_id_tweets_sorted.txt
+  631  less authors_and_reference_id_tweets_sorted.txt 
+  632  join -1 2 -2 2 authors_and_reference_id_tweets_sorted.txt original_author_and_tweet_ids_sorted.txt 
+  633  join <(sort -k 2 authors_and_reference_id_tweets_unsorted.txt) <(sort -k 2 original_author_and_tweet_ids_unsorted.txt)
+  634  ls
+  635  awk 'NR==FNR{a[$2]=$2; next}{$2=a[$1]; print}' original_author_and_tweet_ids_sorted.txt authors_and_reference_id_tweets_sorted.txt 
+  636  awk 'NR==FNR{a[$2]=$1; next}{$2=a[$1]; print}' original_author_and_tweet_ids_sorted.txt authors_and_reference_id_tweets_sorted.txt 
+  637  tail original_author_and_tweet_ids_sorted.txt 
+  638  head original_author_and_tweet_ids_sorted.txt 
+  639  cat original_author_and_tweet_ids_sorted.txt 
+  640  ls
+  641  cat authors_and_reference_id_tweets_sorted.txt 
+  642  ls
+  643  rm all*.txt
+  644  ls
+  645  rm au*.txt
+  646  ls
+  647  rm ori*.txt
+  648  ls
+  649  rm referenced_tweet_id.txt 
+  650  rm top_retweeted_users.txt 
+  651  ls
+  652  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' > all_referenced_tweet_ids_unsorted.txt
+  653  less all_referenced_tweet_ids_unsorted.txt 
+  654  tail all_referenced_tweet_ids_unsorted.txt 
+  655  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' > all_retweet_author_ids_unsorted.txt
+  656  head all_retweet_author_ids_unsorted.txt 
+  657  cat all_retweet_author_ids_unsorted.txt 
+  658  paste all_referenced_tweet_ids_unsorted.txt all_retweet_author_ids_unsorted.txt | sort > reference_tweet_and_author_ids_sorted.txt
+  659  cat reference_tweet_and_author_ids_sorted.txt 
+  660  cat all_retweet_author_ids_unsorted.txt 
+  661  cat all_referenced_tweet_ids_unsorted.txt 
+  662  head all_referenced_tweet_ids_unsorted.txt 
+  663  tail all_referenced_tweet_ids_unsorted.txt 
+  664  all_referenced_tweet_ids_unsorted.txt | wc
+  665  wc all_referenced_tweet_ids_unsorted.txt 
+  666  wc all_retweet_author_ids_unsorted.txt 
+  667  ls
+  668  cat reference_tweet_and_author_ids_sorted.txt 
+  669  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\) type.*/\1/' > all_referenced_tweet_ids_unsorted.txt
+  670  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' > all_retweet_author_ids_unsorted.txt
+  671  paste all_retweet_author_ids_unsorted.txt all_referenced_tweet_ids_unsorted.txt | sort - k 2 > authors_and_reference_id_tweets_sorted.txt
+  672  paste all_retweet_author_ids_unsorted.txt all_referenced_tweet_ids_unsorted.txt | sort -k 2 > authors_and_reference_id_tweets_sorted.txt
+  673  cat authors_and_reference_id_tweets_sorted.txt 
+  674  grep 1517901421391368194 all_retweet_author_ids_unsorted.txt 
+  675  grep 1517901421391368194 all_retweet_author_ids_unsorted.txt | sed -e 's/.*id=\(.*\)type.*/\1/
+  676  grep 1517901421391368194 all_retweet_author_ids_unsorted.txt | sed -e 's/.*id=\(.*\)type.*/\1/'
+  677  tail all_referenced_tweet_ids_unsorted.txt 
+  678  tail tweets.tsv 
+  679  grep 1517901421391368194 tweets.tsv 
+  680  grep -C 2 1517901421391368194 tweets.tsv 
+  681  grep 1517901421391368194 all_retweet_author_ids_unsorted.txt | sed -e 's/\r.*id=\(.*\)type.*/\1/'
+  682  grep 1517901421391368194 all_retweet_author_ids_unsorted.txt | sed -e 's/.*id=\(.*\)type.*/\1/'
+  683  grep retweeted all_retweet_author_ids_unsorted.txt | sed -e 's/.*id=\(.*\)type.*/\1/'
+  684  cat all_retweet_author_ids_unsorted.txt 
+  685  ls
+  686  rm a*.txt
+  687  ls
+  688  rm reference_tweet_and_author_ids_sorted.txt 
+  689  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' > all_referenced_tweet_ids_unsorted.txt
+  690  cat all_referenced_tweet_ids_unsorted.txt 
+  691  head all_referenced_tweet_ids_unsorted.txt 
+  692  tail all_referenced_tweet_ids_unsorted.txt 
+  693  wc all_referenced_tweet_ids_unsorted.txt 
+  694  grep '"' all_referenced_tweet_ids_unsorted.txt 
+  695  grep id all_referenced_tweet_ids_unsorted.txt 
+  696  fgrep retweeted tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}'
+  697  fgrep retweeted tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' > all_retweet_author_ids_unsorted.txt
+  698  ls
+  699  grep '"' all_retweet_author_ids_unsorted.txt 
+  700  wc all_referenced_tweet_ids_unsorted.txt 
+  701  wv all_retweet_author_ids_unsorted.txt 
+  702  wc all_retweet_author_ids_unsorted.txt 
+  703  paste all_referenced_tweet_ids_unsorted.txt all_retweet_author_ids_unsorted.txt 
+  704  paste all_referenced_tweet_ids_unsorted.txt all_retweet_author_ids_unsorted.txt | sort -k 2
+  705  grep 1517901421391368194 all_referenced_tweet_ids_unsorted.txt 
+  706  grep 1517901421391368194 all_retweet_author_ids_unsorted.txt 
+  707  grep 1517901421391368194 tweets.tsv 
+  708  grep -C 2 1517901421391368194 tweets.tsv 
+  709  grep 1517943631189057539 all_referenced_tweet_ids_unsorted.txt 
+  710  grep 1517943631189057539 all_retweet_author_ids_unsorted.txt 
+  711  grep 1517943631189057539 tweets.tsv 
+  712  grep "" all_retweet_author_ids_unsorted.txt 
+  713  grep '\n' all_referenced_tweet_ids_unsorted.txt 
+  714  grep '\n' all_retweet_author_ids_unsorted.txt 
+  715  grep '^$' all_referenced_tweet_ids_unsorted.txt 
+  716  wc all_referenced_tweet_ids_unsorted.txt 
+  717  wc all_retweet_author_ids_unsorted.txt 
+  718  awk '!^$' all_referenced_tweet_ids_unsorted.txt 
+  719  grep '\n' all_retweet_author_ids_unsorted.txt 
+  720  grep '^$' all_referenced_tweet_ids_unsorted.txt 
+  721  wc all_referenced_tweet_ids_unsorted.txt 
+  722  wc all_retweet_author_ids_unsorted.txt 
+  723  awk '!^$' all_referenced_tweet_ids_unsorted.txt > all_referenced_tweet_ids_unsorted.txt 
+  724  awk '!/^$/' all_referenced_tweet_ids_unsorted.txt > all_referenced_tweet_ids_unsorted.txt 
+  725  wc all_referenced_tweet_ids_unsorted.txt 
+  726  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | awk '!/^$/'
+  727  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | awk '!/^$/' > all_referenced_tweet_ids_unsorted_error_removed.txt
+  728  cat all_referenced_tweet_ids_unsorted_error_removed.txt 
+  729  wc all_referenced_tweet_ids_unsorted.txt 
+  730  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' > all_referenced_tweet_ids_unsorted.txt
+  731  wc all_referenced_tweet_ids_unsorted.txt 
+  732  wc all_referenced_tweet_ids_unsorted_error_removed.txt 
+  733  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | awk '!/id/' > all_retweet_author_ids_unsorted_erro_removed.txt
+  734  wc all_retweet_author_ids_unsorted.txt 
+  735  wc all_retweet_author_ids_unsorted_erro_removed.txt 
+  736  ls
+  737  rm all_referenced_tweet_ids_unsorted.txt 
+  738  rm all_retweet_author_ids_unsorted.txt 
+  739  ls
+  740  paste all_referenced_tweet_ids_unsorted_error_removed.txt all_retweet_author_ids_unsorted_erro_removed.txt | sort > reference_tweet_and_author_ids_sorted.txt
+  741  awk 'NR==FNR{a[$1];next} $1 in a{print $2"\t"$1}' referenced_tweet_id.txt tweets_original.tsv
+  742  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt tweets_original.tsv
+  743  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt tweets_original.tsv | sort
+  744  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt tweets_original.tsv | sort > original_author_and_tweet_ids_sorted.txt
+  745  ls
+  746  cat original_author_and_tweet_ids_sorted.txt 
+  747  tail original_author_and_tweet_ids_sorted.txt 
+  748  tail reference_tweet_and_author_ids_sorted.txt 
+  749  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt tweets_original.tsv | sort > original_tweet_and_author_ids_sorted.txt
+  750  ls
+  751  rm original_author_and_tweet_ids_sorted.txt 
+  752  join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt 
+  753  join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\t"$3}'
+  754  join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\t"$3}' > graph1.txt
+  755  join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\t"$3}' | sort > graph1.txt
+  756  cat graph1.txt 
+  757  ls
+  758  awk '{print $1}' graph1.txt | uniq -c | sort -nr | awk '{if ($1>2){print $2}}' > many_retweets.txt
+  759  awk 'NR==FNR {a[$1]; next} $1 in a' many_retweets.txt graph1.txt > graph2.txt
+  760  cat graph2.txt 
+  761  exit
+  762  cd ..
+  763  cd mnt/scratch/luc/cs131/A4/
+  764  awk '{print $1}' graph2.txt | uniq -c > graph3.txt
+  765  cat graph3.txt 
+  766  ../../../../../etc/gnuplot-5.4.4/src/gnuplot 
+  767  ls
+  768  rm graph1.svg
+  769  rm xyz.png 
+  770  ../../../../../etc/gnuplot-5.4.4/src/gnuplot
+  771  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png 
+  772  ls
+  773  sort graph3.txt 
+  774  wc graph3.txt 
+  775  ls
+  776  rm xyz.png 
+  777  ls
+  778  ../../../../../etc/gnuplot-5.4.4/src/gnuplot
+  779  exit
+  780  echo $DISPLAY
+  781  export DISPLAY=:0.0
+  782  echo $DISPLAY
+  783  cd ../..
+  784  cd mnt/scratch/luc/cs131/A4/
+  785  ls
+  786  ../../../../../etc/gnuplot-5.4.4/src/gnuplot
+  787  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png 
+  788  exit
+  789  export DISPLAY=:0.0
+  790  cd ../..
+  791  cd mnt/scratch/luc/cs131/A4/
+  792  ls
+  793  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png 
+  794  cd ..
+  795  cd mnt/scratch/luc/cs131/A4/
+  796  ls
+  797  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png 
+  798  exit
+  799  cd ../..
+  800  cd mnt/scratch/luc/cs131/A4/
+  801  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png
+  802  cat xyz.png 
+  803  cat graph3.txt 
+  804  ls
+  805  rm xyz.png 
+  806  ../../../../../etc/gnuplot-5.4.4/src/gnuplot
+  807  plot 'graph3.txt using (bin($1,binwidth)):(1:0) smooth freq with boxes
+  808  plot 'graph3.txt' using (bin($1,binwidth)):(1:0) smooth freq with boxes
+  809  plot graph3.txt using (bin($1,binwidth)):(1:0) smooth freq with boxes
+  810  ls
+  811  rm xyz.png 
+  812  ../../../../../etc/gnuplot-5.4.4/src/gnuplot
+  813  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png 
+  814  graph3.txt
+  815  sort -rn graph3.txt 
+  816  tail graph2.txt 
+  817  tail many_retweets.txt 
+  818  sl
+  819  ls
+  820  rm graph*.txt
+  821  ls
+  822  rm xyz.png 
+  823  ls
+  824  join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\t"$3}' | sort > graph1.txt
+  825  tail graph1.txt 
+  826  grep 18831926 graph1.txt 
+  827  grep 18831926 tweets.tsv 
+  828  grep 18831926 tweets_original.tsv 
+  829  grep 18831926 original_tweet_and_author_ids_sorted.txt 
+  830  grep 1520260506262593539 reference_tweet_and_author_ids_sorted.txt 
+  831  grep 1028022611324747776 graph1.txt 
+  832  ls
+  833  rm *.txt
+  834  ls
+  835  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | awk '!/^$/' > all_referenced_tweet_ids_unsorted_error_removed.txt
+  836  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $2}}' | awk '!/id/' > all_retweet_author_ids_unsorted_error_removed.txt
+  837  paste all_referenced_tweet_ids_unsorted_error_removed.txt all_retweet_author_ids_unsorted_error_removed.txt | sort > reference_tweet_and_author_ids_sorted.txt
+  838  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt tweets_original.tsv | sort > original_author_and_tweet_ids_sorted.txt
+  839  join original_author_and_tweet_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\t"$3}'
+  840  awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted_error_removed.txt tweets_original.tsv | sort > original_tweet_and_author_ids_sorted.txt
+  841  ls
+  842  rm original_author_and_tweet_ids_sorted.txt 
+  843  ls
+  844  join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt 
+  845  join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt | awk '{print $2"\t"$3}' | sort > graph1.txt
+  846  awk '{print $1}' graph1.txt | uniq -c | sort -nr | awk '{if ($1>2){print $2}}' > many_retweets.txt
+  847  awk 'NR==FNR {a[$1]; next} $1 in a' many_retweets.txt graph1.txt > graph2.txt
+  848  awk '{print $1}' graph2.txt | uniq -c
+  849  awk '{print $1}' graph2.txt | uniq -c > graph3.txt
+  850  ../../../../../etc/gnuplot-5.4.4/src/gnuplot
+  851  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png 
+  852  ../../../../../etc/gnuplot-5.4.4/src/gnuplot
+  853  display ../../../../../etc/gnuplot-5.4.4/src/gnuplot xyz.png
+  854  awk 'NR==FNR {map[$2] = $0; next} $2 in map {print $0, map[$2]}' tweets_original.tsv graph2.txt | cut -f 5 | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > q4.txt
+  855  tail q4.txt 
+  856  head q4.txt 
+  857  cut -f 4 downloaded_tweets_extend_nolf2.tsv | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > A2q5.txt
+  858  cut -f 4 tweets.tsv | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr | head -30 > A2q5.txt
+  859  vimdiff <(awk '{print $2}' A2q5.txt | sort) <(awk '{print $2}' q4.txt | sort)
+  860  cd ../../..
+  861  cd ..
+  862  ls
+  863  cd etc/
+  864  ls
+  865  cd ..
+  866  ls
+  867  cd bin
+  868  ls
+  869  cd ..
+  870  ls
+  871  cd sbin/
+  872  ls
+  873  cd ..
+  874  cd mnt/scratch/luc/
+  875  ls
+  876  cd cs131/
+  877  ls
+  878  cd A4/
+  879  ls
+  880  scp thelu graph1.txt Downloads
+  881  scp thelu graph1.txt /c/Users/thelu/Downloads
+  882  scp thelu graph1.txt /Users/thelu/Downloads
+  883  scp thelu graph1.txt thelu/Downloads
+  884  scp thelu graph1.txt /Downloads
+  885  scp -r thelu graph1.txt /Downloads
+  886  pwd
+  887  ls
+  888  sort graph3.txt 
+  889  ls
+  890  grep 524869533 graph1.txt 
+  891  ls
+  892  sort graph3.txt 
+  893  grep 1238370241169616897 graph1.txt 
+  894  grep 1238370241169616897 graph1
+  895  grep 1238370241169616897 graph1.txt 
+  896  grep 1238370241169616897 graph1.txt | uniq
+  897  grep 1238370241169616897 graph1.txt | uniq | sed 's/,/\t/g'
+  898  grep 1238370241169616897 graph1.txt | uniq | sed 's/\t/,/g'
+  899  grep 1238370241169616897 graph1.txt | uniq | sed 's/\t/,/g' > retweeted_user_connections.csv
+  900  ls
+  901  cd ~
+  902  ls
+  903  cd cs131
+  904  ls
+  905  cd A3
+  906  ls
+  907  cd /mnt
+  908  cd scratch/luc/cs131/A4/
+  909  ls
+  910  awk -F '\t' '$6 != "" && NR>1 {print $6"\t"$2}' tweets_original.tsv | sort > replies1.tsv
+  911  grep 1238370241169616897 replies1.tsv | uniq | sed 's/\t/,/g'
+  912  grep 1238370241169616897 replies1.tsv | uniq | sed 's/\t/,/g' > replied_user_connections.csv
+  913  exit
+  914  exit
+  915  script a4.txt
+  916  ls
+  917  cd A4
+  918  ls
+  919  cd ..
+  920  ls
+  921  cd ..
+  922  ls
+  923  exit
+  924  fgrep "retweeted" tweets.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' |script a4.txt
+  925  cat a4.txt 
+  926  ls
+  927  rm g*.txt
+  928  rm r*
+  929  ls
+  930  rm A2q5.txt 
+  931  rm all*
+  932  rm many_retweets.txt 
+  933  rm original_tweet_and_author_ids_sorted.txt 
+  934  rm q4
+  935  rm q4.txt 
+  936  ls
+  937  cd ..
+  938  exit
+  939  script a4.txt
+  940  exit
+  941  ls
+  942  cd cs131
+  943  ls
+  944  awk -F '\t' '$6 != "" && NR>1 {print $6"\t"$2}' tweets_original.tsv| sort > graph1.tsv
+  945  grep 1238370241169616897 graph1.tsv
+  946  exit
+  947  grep 0262181533 ../../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' {print $14} | sed -r 's/\b(and|or|if|in|it)\b//g;s/[,.:]//g;s/<[^>]*>//g'
+  948  grep 0262181533 ../../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' '{print $14}' | sed -r 's/\b(and|or|if|in|it)\b//g;s/[,.:]//g;s/<[^>]*>//g'
+  949  grep 0262181533 ../../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' '{print $14}' | sed -r 's/\b(and|or|if|in|it)\b//g;s/[,.:]//g;s/<[^>]*>//g' > 0262181533_cleaned.txt
+  950  cat 0262181533_cleaned.txt 
+  951  grep 0262181533 ../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' '{print $14}' | sed -r 's/\b(and|or|if|in|it|)\b//g;s/[,.:]//g;s/<[^>]*>//g' > 0262181533_cleaned.txt
+  952  grep 0262181533 ../../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' '{print $14}' | sed -r 's/\b(and|or|if|in|it|)\b//g;s/[,.:]//g;s/<[^>]*>//g'
+  953  grep 0262181533 ../../amazon_reviews_us_Books_v1_02.tsv | awk -F '\t' '{print $14}' | sed -r 's/\b(and|or|if|in|it|)\b//g;s/[,.:]//g;s/<[^>]*>//g' > 0262181533_cleaned.txt
+  954  cat 0262181533_cleaned.txt 
+  955  mkdir ws7
+  956  cd ws7
+  957  script ws7.txt
+  958  history > cmds.log
+  959  vi cmds.log 
+  960  vi 0262181533_cleaned.txt 
+  961  vi ws7.txt 
+  962  git status
+  963  ls
+  964  git add cmds.log 
+  965  git add ws7.txt 
+  966  git commit -m "completed ws7 with annotations"
+  967  git push origin main
+  968  git pull
+  969  git push origin main
+  970  exit
+  971  awk -F '\t' '$12 == "Y" {print $0}' ../../amazon_reviews_us_Books_v1_02.tsv > verified.txt
+  972  awk -F '\t' '$12 == "N" {print $0}' ../../amazon_reviews_us_Books_v1_02.tsv > unverified.txt
+  973  sed -e  's/[^A-Za-z]/ /g' verified.txt | tr 'A-Z' 'a-z' | tr ' ' '\n' | grep -v '^$'| sort | uniq -c | sort -rn | head -100
+  974  head -100 unverified.txt | sed -e 's/[^A-Za-z]/ /g' | tr 'A-Z' 'a-z' | tr ' ' '\n' | grep -v '^$'| sort | uniq -c | sort -rn | head -100
+  975  awk -F '\t' '$12 == "Y" {print $0}' ../../amazon_reviews_us_Books_v1_02.tsv | head -100 > verified.txt
+  976  awk -F '\t' '$12 == "N" {print $0}' ../../amazon_reviews_us_Books_v1_02.tsv | head -100 > unverified.txt
+  977  sed -e 's/[^A-Za-z]/ /g' verified.txt | tr 'A-Z' 'a-z' | tr ' ' '\n' | grep -v '^$'| sort | uniq -c | sort -rn | head -100
+  978  sed -e 's/[^A-Za-z]/ /g' unverified.txt | tr 'A-Z' 'a-z' | tr ' ' '\n' | grep -v '^$'| sort | uniq -c | sort -rn | head -100
+  979  history > ~/cs131/ws8/cmds.log
+  980  mkdir ~/cs131/ws8
+  981  mkdir ws8
+  982  cd ws8
+  983  script ~/cs131/ws8/ws8.txt
+  984  cd ~/cs131/ws8
+  985  ls
+  986  vi cmds.log 
+  987  git status
+  988  ls
+  989  git add cmds.log 
+  990  git add ws8.txt 
+  991  git pull
+  992  git commit -m "completed ws8"
+  993  git push origin main
+  994  exit
+  995  tmux new-session -s homework
+  996  tmux attach -t homework
+  997  vi randomsample.sh
+  998  chmod u+rx randomsample.sh
+  999  ./randomesample.sh 5 ../../amazon_reviews_us_Books_v1_02.tsv 
+ 1000  ./randomsample.sh 5 ../../amazon_reviews_us_Books_v1_02.tsv 
+ 1001  vi randomsample.sh
+ 1002  ./randomsample.sh 5 ../../amazon_reviews_us_Books_v1_02.tsv 
+ 1003  vi randomsample.sh 
+ 1004  ./randomsample.sh 5 ../../amazon_reviews_us_Books_v1_02.tsv 
+ 1005  vi randomsample.sh 
+ 1006  ./randomsample.sh 5 ../../amazon_reviews_us_Books_v1_02.tsv 
+ 1007  history > ~/cs131/ws9/cmds.log
