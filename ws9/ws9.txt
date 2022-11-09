@@ -11,8 +11,8 @@ FILE=$2
 
 int='^[0-9]+$'
 
-if ! [[ $PERCENT =~ $int ]] ; then
-       echo "error: $PERCENT is not an integer" >&2; exit 1
+if ! [[ $PERCENT =~ $int ]]; then
+        echo "error: $PERCENT is not an integer" >&2; exit 1
 fi
 if [ ! -f $FILE ]; then
         echo "$FILE does not exist"; exit 1
@@ -23,12 +23,12 @@ fi
 
 LINES=`wc -l $FILE | cut -d ' ' -f1`
 START=1
-END=$(($LINES*$PERCENT/100))
 
-for (( c=$START; c<=$END; c++ ))
+for (( c=$START; c<=$LINES; c++ ))
 do
-        RANDOM_LINE=`shuf -n 1 $FILE`
-        echo $RANDOM_LINE
+        if [ $(($RANDOM % 100)) -le $PERCENT ]; then
+                echo `awk "NR==$c" $FILE`
+        fi
 done
 
 kluc@sjsu:/mnt/scratch/luc/cs131/ws9\[luc@sjsu ws9]$ chmod u+rx randomsample.sh
