@@ -1,26 +1,45 @@
 Script started on 2022-11-15 19:07:38-05:00
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ vi numbers.sh
-[?2004h[?1049h[22;0;0t[?1h=[?2004h[1;30r[?12h[?12l[H[2J[?25l[30;1H"numbers.sh" [New File][2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[2;1H~                                                                                                                       [3;1H~                                                                                                                       [4;1H~                                                                                                                       [5;1H~                                                                                                                       [6;1H~                                                                                                                       [7;1H~                                                                                                                       [8;1H~                                                                                                                       [9;1H~                                                                                                                       [10;1H~                                                                                                                       [11;1H~                                                                                                                       [12;1H~                                                                                                                       [13;1H~                                                                                                                       [14;1H~                                                                                                                       [15;1H~                                                                                                                       [16;1H~                                                                                                                       [17;1H~                                                                                                                       [18;1H~                                                                                                                       [19;1H~                                                                                                                       [20;1H~                                                                                                                       [21;1H~                                                                                                                       [22;1H~                                                                                                                       [23;1H~                                                                                                                       [24;1H~                                                                                                                       [25;1H~                                                                                                                       [26;1H~                                                                                                                       [27;1H~                                                                                                                       [28;1H~                                                                                                                       [29;1H~                                                                                                                       [30;103H0,0-1[9CAll[1;1H[?25h[?12$p[?25l[30;1H-- INSERT --[30;14H[K[30;103H0,1[11CAll[1;1H#!/bin/bash[?25h[?25l[2;1H[K[3;1Hawk -F '\t' 'NR>1 { total+=$9; [3;32H[K[3;32H[?25h[?25lnums[NR] = $9
-} END {[4;8H[K[5;1H        asort(nums)[5;20H[K[6;1H        avg = total/ (NR - [6;28H[K[6;28H[?25h[?25l1)
-        printf "min %s max %s a[7;32H[K[7;32H[?25h[?25lvg %s\n[?25h[?25l",\
-           [8;12H[K[8;12H[?25h[?25l     nums[1],\
-                nums[(NR - 1)],\[9;33H[K[10;1H    [10;5H[K[10;5H[?25h[?25l            avg
-}' /mnt/scratch/luc/cs131/ws10/amazo[11;37H[K[11;37H[?25h[?25ln_reviews_us_Books_v1_[?25h[?25l[30;1H[K[11;59H02.tsv[30;103H11,64[9CAll[11;64H[?25h[?25l[30;93H^[[11;64H[30;93H  [11;64H[30;93H^[[11;64H[30;93H  [11;64H[?25h[?25l[30;93H:[11;64H[30;93H[K[30;1H:[?2004h[?25hw[?25l[?25hq[?25l[?25h[?25l[?2004l"numbers.sh" [New] 11L, 302C written
-[?2004l[?1l>[?25h[?1049l[23;0;0t]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ chmod u+rx numbers.sh
-]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ time sh numbers.sh[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcp ../../amazon_reviews_us_Books_v1_02.tsv .
-]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ time sh numbers.sh
+"numbers.sh"
+[New File]
+
+#!/bin/bash
+
+awk -F '\t' 'NR>1 { total+=$9; nums[NR] = $9
+} END {
+        asort(nums)
+        avg = total/ (NR - 1)
+        printf "min %s max %s avg %s\n",\
+                nums[1],\
+                nums[(NR - 1)],\
+                avg
+}' /mnt/scratch/luc/cs131/ws10/amazon_reviews_us_Books_v1_02.tsv
+
+[New] 11L, 302C written
+
+
+]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ chmod u+rx numbers.sh
+]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ cp ../../amazon_reviews_us_Books_v1_02.tsv .
+
+Do you think the Python program or the shell script runs faster on your input file?
+[ANSWER] I thought the bash script would run faster than the python script, but it the only metric that the bash script
+was able to beat python in was CPU seconds in kernel mode (sys).
+
+]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ time sh numbers.sh
 min 0 max 15835 avg 9.33468
 
 real	0m24.308s
 user	0m23.787s
 sys	0m0.520s
-]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ time python3 numbers.py
+
+]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ time python3 numbers.py
 min 0 max 15835 avg 9.33467921636312
 
 real	0m19.423s
 user	0m18.687s
 sys	0m0.680s
-]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ history > ~/cs131/ws10/cmds.log
-]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ exit
+
+]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ history > ~/cs131/ws10/cmds.log
+]0;luc@sjsu:/mnt/scratch/luc/cs131/ws10[luc@sjsu ws10]$ exit
 
 Script done on 2022-11-15 19:11:48-05:00
