@@ -1,917 +1,52 @@
 Script started on 2022-11-16 17:36:14-05:00
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ fgrep "retweeted" downloaded_tweets_extend_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' |  awk '!/^$/' > all_referenced_tweet_ids_unsorted.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ fgrep "retweeted" downloaded_tweets_extend_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $2"\t"$4}}' | awk '!/id/' > all_retweet_autthor_ids_unsorted.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ paste all_referenced_tweet_ids_unsorted.txt all_retweet_author_ids_unsorted.txt | sort > reference_tweet_and_author_ids_sorted.txtt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted.txt downloaded_tweets_extend_original_nolf2.tssv | sort > original_tweet_and_author_ids_sorted.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt -a2 | tr ' ' \\t | tr A-Z a-z | cut -f2-  | sort > original_author_to_rt_author_graph.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk '{print $1}' original_author_to_rt_author_graph.txt | uniq -c | sort -nr | awk '{if ($1>2){print $2}}' > influencer_retweet.txxt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ fgrep "retweeted" downloaded_tweets_extend_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $5}}' | sed -e 's/.*id=\(.*\)type.*/\1/' | awk '!/^$/' > all_referenced_tweet_ids_unsorted.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ fgrep "retweeted" downloaded_tweets_extend_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $2"\t"$4}}' | awk '!/id/' > all_retweet_author_ids_unsorted.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ paste all_referenced_tweet_ids_unsorted.txt all_retweet_author_ids_unsorted.txt | sort > reference_tweet_and_author_ids_sorted.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk 'NR==FNR{a[$1];next} $1 in a{print $1"\t"$2}' all_referenced_tweet_ids_unsorted.txt downloaded_tweets_extend_original_nolf2.tsv | sort > original_tweet_and_author_ids_sorted.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ join original_tweet_and_author_ids_sorted.txt reference_tweet_and_author_ids_sorted.txt -a2 | tr ' ' \\t | tr A-Z a-z | cut -f2- | sort > original_author_to_rt_author_graph.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk '{print $1}' original_author_to_rt_author_graph.txt | uniq -c | sort -nr | awk '{if ($1>2){print $2}}' > influencer_retweet.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ mkdir retweet_leaders
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk 'NR==FNR{a[$0]++;next}{if($1 in a){print $3 >> "retweet_leaders/"$1".txt"}}' influencer_retweet.txt original_author_to_rt_authhor_graph.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk 'NR==FNR{a[$0]++;next}{if($1 in a){print $3 >> "retweet_leaders/"$1".txt"}}' influencer_retweet.txt original_author_to_rt_author_graph.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cd retweet_leaders
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/retweet_leaders[luc@sjsu retweet_leaders]$ for FILE in `ls`; do sed -i '/^$/d' $FILE ; cat $FILE | tr -d '"' | tr ',' '\n' >> temp && mv temp $FILE; done
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/retweet_leaders[luc@sjsu retweet_leaders]$ cd ..
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cut -f 3 original_author_to_rt_author_graph.txt | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr > count_H_entire_dataset.txtt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cut -f 3 original_author_to_rt_author_graph.txt | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr > count_H_entire_dataset.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ wc -l count_H_entire_dataset.txt
 9765 count_H_entire_dataset.txt
+# SUB 1 TO ACCOUNT FOR EMPTY IN HASHTAG COLUMN
+
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cd retweet_leaders
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/retweet_leaders[luc@sjsu retweet_leaders]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashttags_in_C=`cat $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_retweet.txt`` ; count_hashtags_entire_dataset=9764 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$couunt_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -ll` ; echo -e "$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\tt$count_H_entire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../retweets_hashtags_freqs.tsv
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/retweet_leaders[luc@sjsu retweet_leaders]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashtags_in_C=`cat $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_retweet.txt` ; count_hashtags_entire_dataset=9764 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$count_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -l` ; echo -e "$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\t$count_H_entire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../retweets_hashtags_freqs.tsv
 awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
 (standard_in) 1: syntax error
 (standard_in) 2: syntax error
 ^C
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/retweet_leaders[luc@sjsu retweet_leaders]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashttags_in_C=`cat $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_retweet.txt`` ; count_hashtags_entire_dataset=9764 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$couunt_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -ll` ; echo -e "$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\tt$count_H_entire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../retweets_hashtags_freqs.tsv[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd retweet_leaders[K
-[K
-[K
-[K
-[K
-[K[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cwc -l count_H_entire_dataset.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccut -f 3 original_author_to_rt_author_graph.txt | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr > count_H_entirre_dataset.txt_.txtr.txte.txtt.txtw.txte.txte.txt[A[C[C[C[C[C[C[C[C[C[C[Cwc -l count_H_entire_dataset.txt[K
-[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Pcd retweet_leadersfor FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashttags_in_C=`cat $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_retweet.txt`` ; count_hashtags_entire_dataset=9764 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$couunt_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -ll` ; echo -e "$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\tt$count_H_entire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../retweets_hashtags_freqs.tsv[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
-[K
-[K
-[K
-[K
-[K[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd ..
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ ls
-all_referenced_tweet_ids_unsorted.txt  downloaded_tweets_extend_original_nolf2.tsv  reference_tweet_and_author_ids_sorted.txt
-all_retweet_author_ids_unsorted.txt    influencer_retweet.txt                       [0m[38;5;33mretweet_leaders[0m
-count_H_entire_dataset.txt             original_author_to_rt_author_graph.txt       retweets_hashtags_freqs.tsv
-downloaded_tweets_extend_nolf2.tsv     original_tweet_and_author_ids_sorted.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ mv count_H_entire_dataset.txt count_H_entire_dataset_retweet.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashtags_in_C=`catt $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_retweet.txt` ; count_hashhtags_entire_dataset=9764 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$count_H_entire_ddataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -l` ; echo -e ""$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\t$count_H_entiire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../retweets_hashtags_freqs.tsv
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-awk: fatal: cannot open file `../count_H_entire_dataset_retweet.txt' for reading (No such file or directory)
-^C
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashtags_in_C=`catt $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_retweet.txt` ; count_hashhtags_entire_dataset=9764 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$count_H_entire_ddataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -l` ; echo -e ""$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\t$count_H_entiire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../retweets_hashtags_freqs.tsv[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
-[K
-[K
-[K
-[K
-[K[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd retweet_leaders
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/retweet_leaders[luc@sjsu retweet_leaders]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashttags_in_C=`cat $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_retweet.txt`` ; count_hashtags_entire_dataset=9764 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$couunt_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -ll` ; echo -e "$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\tt$count_H_entire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../retweets_hashtags_freqs.tsv
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
-(standard_in) 1: syntax error
-(standard_in) 2: syntax error
+
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/retweet_leaders[luc@sjsu retweet_leaders]$ cd ..
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ echo "hashtag_H   cluster_C_leader(userID)   relative_frequency_H_C  frequency_H_in_C  frequency_H_overall   count_H_in_C   count__hashtags_in_C   count_H_entire_dataset    count_hashtags_entire_dataset" > header.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ echo "hashtag_H   cluster_C_leader(userID)   relative_frequency_H_C  frequency_H_in_C  frequency_H_overall   count_H_in_C   count_hashtags_in_C   count_H_entire_dataset    count_hashtags_entire_dataset" > header.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cat header.txt retweets_hashtags_freqs.tsv > temp && mv temp retweets_hashtags_freqs.tsv
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ grep replied downloaded_tweets_extend_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $0}}' > all_replies.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk -F '\t' '{print $6}' all_replies.txt | uniq -c | sort -nr | awk '{if($1>2){print $2}}' > influencer_replies.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk -F '\t' 'NR==FNR{a[$0]++;next}{if($6 in a){print $4 >> "reply_leaders/"$6".txt"}}' influencer_replies.txt all_replies.txt
-awk: cmd. line:1: (FILENAME=all_replies.txt FNR=697) fatal: can't redirect to `reply_leaders/775611351792222208.txt' (No such file or directory)
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ mkdir reply_leaders
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ awk -F '\t' 'NR==FNR{a[$0]++;next}{if($6 in a){print $4 >> "reply_leaders/"$6".txt"}}' influencer_replies.txt all_replies.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cd reply_leaders
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/reply_leaders[luc@sjsu reply_leaders]$ for FILE in `ls`; do sed -i '/^$/d' $FILE ; cat $FILE | tr A-Z a-z | tr -d '"' | tr ',' '\n' >> temp && mv temp $FILE;  done
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/reply_leaders[luc@sjsu reply_leaders]$ for FILE in `ls`; do sed -i '/^$/d' $FILE ; cat $FILE | tr A-Z a-z | tr -d '"' | tr ',' '\n' >> temp && mv temp $FILE; done
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/reply_leaders[luc@sjsu reply_leaders]$ cd ..
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cut -f 4 all_replies.txt | tr A-Z a-z | tr -d '"' | tr ',' '\n' | sort | uniq -c | sort -nr > count_H_entire_dataset_reply.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ wc -l count_H_entire_dataset_reply.txt
 2730 count_H_entire_dataset_reply.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cd reply_leaders
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/reply_leaders[luc@sjsu reply_leaders]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashtaggs_in_C=`cat $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_reply.txt` ; ccount_hashtags_entire_dataset=2730 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$count_HH_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -l` ;  echo -e "$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\t$couunt_H_entire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../replies_hashtags_freqs.tsv
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/reply_leaders[luc@sjsu reply_leaders]$ for FILE in `ls` ; do for HASHTAG in `cat $FILE | uniq` ; do count_H_in_C=`grep $HASHTAG $FILE | wc -l` ; count_hashtag
+gs_in_C=`cat $FILE | wc -l` ; count_H_entire_dataset=`awk -v h="$HASHTAG" -F ' ' '{if ($2==h) print $1}' ../count_H_entire_dataset_reply.txt` ; count_hashtags_entire_dataset=2730 ; frequency_H_in_C=`echo "$count_H_in_C / $count_hashtags_in_C" | bc -l` ; frequency_H_overall=`echo "$count_H_entire_dataset / $count_hashtags_entire_dataset" | bc -l` ; relative_frequency_H_C=`echo "$frequency_H_in_C / $frequency_H_overall" | bc -l` ; echo -e "$HASHTAG\t${FILE//[!0-9]/}\t$relative_frequency_H_C\t$frequency_H_in_C\t$frequency_H_overall\t$count_H_in_C\t$count_hashtags_in_C\t$count_H_entire_dataset\t$count_hashtags_entire_dataset"; done ; done > ../replies_hashtags_freqs.tsv
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5/reply_leaders[luc@sjsu reply_leaders]$ cd ..
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ cat header.txt replies_hashtags_freqs.tsv > temp && mv temp replies_hashtags_freqs.tsv
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A5[luc@sjsu A5]$ exit
+
+Q: do you see any hashtags that are "special" to some clusters, i.e. that occur often in a particular cluster of tweets, but less often in the tweets overall? Which hashtags and for which clusters (ID'ed by their leaders)?
+
+ANALYSIS:
+SORTED BY COUNT_H_IN_C TO FIND CLUSTERS WITH THE MOST OF A SINGLE HASHTAG
+retweets - ukraine used in 97 different retweets in user 18831926's tweets out of the 881 total hashtags found in people that retweeted their tweet
+replies - teammolly taking up 28 of user 956266072440635392's 30 total hashtags used in replies
 
 Script done on 2022-11-16 18:05:05-05:00
