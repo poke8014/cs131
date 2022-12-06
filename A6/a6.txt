@@ -1,18 +1,35 @@
 Script started on 2022-12-06 18:23:21-05:00
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ cp /home/test/A1/downloaded_tweets_extend_nolf2.tsv .
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ cp /home/test/A1/downloaded_tweets_extend_nolf2.tsv .[C[C[1@_[1@o[1@r[1@i[1@g[1@i[1@n[1@a[1@l
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ grep replied downloaded_tweets_extend_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $0}}' > REPLIES_NOBOTS.ttsv
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ grep replied downloaded_tweets_extend_original_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $0}}' >> REPLIEES_NOBOTS.tsv
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' '{print $6}' REPLIES_NOBOTS.tsv | sort | uniq -c | sort -nr | awk '{if($1>2){print $2}}' | sorrt > influencers.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ cp /home/test/A1/downloaded_tweets_extend_original_nolf2.tsv .
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ grep replied downloaded_tweets_extend_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $0}}' > REPLIES_NOBOTS.tsv
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ grep replied downloaded_tweets_extend_original_nolf2.tsv | awk -F '\t' '{if ($2!=$6){print $0}}' >> REPLIES_NOBOTS.tsv
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' '{print $6}' REPLIES_NOBOTS.tsv | sort | uniq -c | sort -nr | awk '{if($1>2){print $2}}' | sort > influencers.txt
+
+1- How many such influential users exist?
+466 influential users
+
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ wc -l influencers.txt
 466 influencers.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' 'NR==FNR{a[$0];next} $6 in a{print $0}' influencers.txt REPLIES_NOBOTS.tsv > replied_to_infl.ttxt
+
+2- How many users replied to them in total?
+2479 users replied to influential users
+
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' 'NR==FNR{a[$0];next} $6 in a{print $0}' influencers.txt REPLIES_NOBOTS.tsv > replied_to_infl.t
+txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ wc -l replied_to_infl.txt
 2479 replied_to_infl.txt
+
+3- How many of the users who replied to the influential users also got replied to from any other user (at least once)?
+339 users that replied to influential users also got replies from another user
+
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' '{print $2}' replied_to_infl.txt | sort | uniq > users_replied_to_infl.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' 'NR==FNR{a[$0];next} $6 in a{print $0}' users_replied_to_infl.txt REPLIES_NOBOTS.tsv > repliess_to_infl_repliers.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' 'NR==FNR{a[$0];next} $6 in a{print $0}' users_replied_to_infl.txt REPLIES_NOBOTS.tsv > replies
+s_to_infl_repliers.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ wc -l replies_to_infl_repliers.txt
 339 replies_to_infl_repliers.txt
+
+4- Extract the dates of the replies in format YY-MM-DD and find the top 10 dates on which the most replies happened.
+
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk '{print $3}' replied_to_infl.txt | sort | uniq -c | sort -nr -k 1 | head
      40 2022-02-17
      38 2022-02-24
@@ -24,8 +41,23 @@ Script started on 2022-12-06 18:23:21-05:00
      30 2022-04-29
      30 2022-03-25
      30 2022-02-14
+     
+Which words are the most frequent in that tweet text? Are they what you expected based on the frequent hashtags from previous assignments?
+1. ford
+2. covid19
+3. putinhitler
+4. ontario
+5. need
+6. doug
+7. covid
+8. canada
+9. standwithukraine
+10. ukraine
+Yes, these words are expected based off the previous assignments
+ 
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ awk -F '\t' '{print $8}' replied_to_infl.txt > infl_replies_text.txt
-]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ cat infl_replies_text.txt | tr -d '[:punct:]' | sed 's/ \+/ /g' | sed 's/\t/ /g' | sed 's/ /\n/g' | tr A-ZZ a-z > filtered_text.txt
+]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ cat infl_replies_text.txt | tr -d '[:punct:]' | sed 's/ \+/ /g' | sed 's/\t/ /g' | sed 's/ /\n/g' | tr A-Z
+Z a-z > filtered_text.txt
 ]0;luc@sjsu:/mnt/scratch/luc/cs131/A6[luc@sjsu A6]$ fgrep -v -w -f /usr/share/groff/current/eign filtered_text.txt | sort | uniq -c | sort -nr | head -n 14
     456 amp
     455 
